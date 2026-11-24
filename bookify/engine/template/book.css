@@ -1,0 +1,192 @@
+/* ==========================================================
+   BOOKIFY · Book template
+   Visual identity: see engine/template/DESIGN.md
+   Fixed logical page: 440 × 660 px (2:3 ratio). It is scaled
+   as a whole to the screen size, so the layout is identical
+   on phone, tablet and PC.
+   ========================================================== */
+
+:root{
+  /* "Faro" palette */
+  --ink:#1B1B2F;         /* Night Ink: text and strokes */
+  --paper:#FFFFFF;       /* Paper */
+  --indigo:#3949D6;      /* Faro Indigo: main accent, folios, underlines */
+  --coral:#FF6B4F;       /* Spark Coral: warm accent, results, cover */
+  --mint:#BFE6D5;        /* Pause Mint: calm chapter openers */
+  --tint:#ECEEFD;        /* Indigo Tint: code background */
+  --gray:#5E5E70;        /* Note Gray: secondary text */
+  --rule:#E5E6EE;        /* Hairline */
+  --desk:#E7E8EE;        /* background behind the book */
+  --desk-ink:#2b2b2b;
+  --pw:440px;--ph:660px;
+  --turn:700ms;
+}
+@media (prefers-color-scheme:dark){:root{--desk:#17182A;--desk-ink:#e9e9e9}}
+
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%;margin:0}
+body{background:var(--desk);color:var(--desk-ink);overflow:hidden;font-family:"Source Serif 4",Georgia,serif;-webkit-tap-highlight-color:transparent;touch-action:pan-y pinch-zoom}
+
+/* ---------- Desk and stage ---------- */
+#desk{position:fixed;inset:0 0 64px 0;display:grid;place-items:center;overflow:hidden}
+#frame{position:relative}
+#scaler{position:absolute;left:0;top:0;transform-origin:0 0}
+body.short #desk{overflow-y:auto;place-items:start center;padding:10px 0 24px}
+#book{position:relative;height:var(--ph);perspective:2600px;transition:transform var(--turn) cubic-bezier(.45,.05,.25,1)}
+#book.double{width:calc(var(--pw)*2)}
+#book.single{width:var(--pw)}
+
+/* Bases: the stack of sheets underneath (shadow on the desk and page edges) */
+.base{position:absolute;top:0;height:100%;width:var(--pw);background:var(--paper);opacity:0;transition:opacity .2s}
+.base.shown{opacity:1}
+.base.right{left:var(--pw);border-radius:0 3px 3px 0;box-shadow:var(--edge-r,0 0 0 transparent),0 28px 50px -18px rgba(0,0,0,.45),0 6px 14px -6px rgba(0,0,0,.25)}
+.base.left{left:0;border-radius:3px 0 0 3px;box-shadow:var(--edge-l,0 0 0 transparent),0 28px 50px -18px rgba(0,0,0,.45),0 6px 14px -6px rgba(0,0,0,.25)}
+.single .base.right{left:0;border-radius:3px}
+
+/* Sheets */
+.sheet{position:absolute;top:0;width:var(--pw);height:100%;transform-style:preserve-3d;transform-origin:left center;transition:transform var(--turn) cubic-bezier(.45,.05,.25,1)}
+.double .sheet{left:var(--pw)}
+.single .sheet{left:0}
+.sheet.turned{transform:rotateY(-180deg)}
+.sheet.no-anim{transition:none}
+.sheet.far{display:none}
+.single .sheet.turned:not(.turning){visibility:hidden}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:var(--paper)}
+.face.rear{transform:rotateY(180deg)}
+/* spine shadow (like a real open book) */
+.face::before{content:"";position:absolute;top:0;bottom:0;width:46px;z-index:3;pointer-events:none}
+.face.r::before{left:0;background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.05) 35%,transparent)}
+.face.l::before{right:0;background:linear-gradient(270deg,rgba(0,0,0,.16),rgba(0,0,0,.05) 35%,transparent)}
+.single .face.r::before{width:18px;background:linear-gradient(90deg,rgba(0,0,0,.08),transparent)}
+/* light sweeping across the sheet as it turns */
+.face::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,0) 60%,rgba(255,255,255,.18))}
+.turning .face::after{animation:sweep var(--turn) ease-in-out}
+@keyframes sweep{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+.face.empty{background:var(--paper)}
+.face.empty::after{background:linear-gradient(90deg,rgba(0,0,0,.05),transparent)}
+
+/* ---------- Controls ---------- */
+#bar{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 12px;font:600 13px Montserrat,system-ui,sans-serif}
+#bar button{width:44px;height:44px;border-radius:50%;border:0;background:var(--indigo);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+#bar button.secondary{background:transparent;color:var(--desk-ink);border:2px solid currentColor}
+#bar button:disabled{opacity:.3;cursor:default}
+#bar button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+#bar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#pos{min-width:84px;text-align:center;white-space:nowrap}
+#progress{position:fixed;left:0;bottom:0;height:3px;background:var(--indigo);transition:width .3s}
+
+/* ==========================================================
+   PAGE CONTENT (440 × 660)
+   ========================================================== */
+.page{position:relative;width:var(--pw);height:var(--ph);padding:58px 46px 66px;display:flex;flex-direction:column;justify-content:center;background:var(--paper);color:var(--ink);font:16.5px/1.6 "Source Serif 4",Georgia,serif;overflow:hidden;hyphens:auto}
+.page.top{justify-content:flex-start}
+.folio{position:absolute;left:0;right:0;bottom:26px;text-align:center;font:600 11px Montserrat,sans-serif;color:var(--indigo)}
+.page p{margin:0 0 .95em;text-align:justify}
+.page .center,.page .center p{text-align:center;hyphens:none}
+.page b,.page strong{font-weight:700}
+.page u{text-decoration:none;border-bottom:2.5px solid var(--indigo);padding-bottom:1px}
+.page a{color:inherit;text-decoration-color:var(--indigo);text-underline-offset:3px;overflow-wrap:anywhere}
+.page code{font:600 .8em Montserrat,sans-serif;background:var(--tint);color:#2B37A8;padding:1px 5px;border-radius:4px;white-space:nowrap}
+.page kbd{font:600 .76em Montserrat,sans-serif;border:1.5px solid var(--ink);border-bottom-width:3px;border-radius:5px;padding:0 5px;white-space:nowrap}
+.page > *:last-child{margin-bottom:0}
+
+.h-1,.h-2{font-family:Merriweather,Georgia,serif;font-weight:900;line-height:1.1;text-align:center;margin:0 0 .75em;hyphens:none;text-wrap:balance}
+.h-1{font-size:34px}
+.h-2{font-size:25px}
+.page .question{font-family:Merriweather,Georgia,serif;font-size:33px;line-height:1.15;text-align:center;margin:0 0 .8em;hyphens:none;text-wrap:balance}
+.question span{font-weight:400;display:block}.question strong{font-weight:900;display:block}
+.highlight{font-size:20px;line-height:1.45;margin:0 0 .9em;hyphens:none}
+.highlight.center{text-align:center}
+.footnote{font-size:13.5px;color:var(--gray);text-align:left!important}
+
+.illus{display:block;margin:0 auto 22px;height:auto}
+.illus.s{width:84px}.illus.m{width:120px}.illus.l{width:100%;max-width:330px}
+.art .line{stroke:var(--ink);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.art .outline{stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.art .indigo{fill:var(--indigo)}.art .coral{fill:var(--coral)}.art .mint{fill:var(--mint)}.art .paper{fill:var(--paper)}.art .ink{fill:var(--ink)}
+
+.note{margin:22px auto 0;max-width:330px;text-align:center;font:19px/1.3 "Patrick Hand",cursive}
+.note .label{color:var(--indigo);font-weight:400;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px}
+.note .label svg{width:22px;height:22px;flex:none}
+.note em{color:var(--indigo);font-style:normal}
+
+.list{padding-left:1.15em;margin:0 0 .9em}
+.list li{margin-bottom:.5em}
+.list li::marker{color:var(--indigo);font-weight:700}
+
+.table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.45;margin:0 0 12px}
+.table td{padding:8px 5px;border-bottom:1px solid var(--rule);vertical-align:top}
+.table td:first-child{white-space:nowrap;width:1%;padding-right:12px}
+
+.levels{display:grid;grid-template-columns:auto 1fr;gap:10px 12px;align-items:baseline;font-size:15.5px;line-height:1.4}
+.levels code{justify-self:start}
+
+.facts{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:18px 0 0;font-size:14.5px;line-height:1.45}
+.facts dt{font:600 11.5px/1.9 Montserrat,sans-serif;color:var(--indigo)}
+.facts dd{margin:0}
+
+.sizes{display:flex;align-items:flex-end;justify-content:center;gap:16px;margin:0 0 26px}
+.sizes div{text-align:center;font:700 13.5px "Source Serif 4",serif}
+.sizes i{display:block;margin:0 auto 8px;border:3px solid var(--ink);border-radius:50%;background:var(--indigo)}
+
+.combine{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0 10px;width:320px;margin:0 auto 28px;padding-bottom:78px}
+.combine::before{content:"";position:absolute;top:40px;left:calc(25% + 40px);right:calc(25% + 40px);border-top:3px solid var(--ink)}
+.combine::after{content:"";position:absolute;top:40px;bottom:50px;left:50%;border-left:3px solid var(--ink)}
+.combine .node{text-align:center;font:700 13.5px/1.25 "Source Serif 4",serif;hyphens:none}
+.combine .circle{width:80px;height:80px;border:3px solid var(--ink);border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;background:var(--paper);position:relative;z-index:1}
+.combine .circle svg{width:46px;height:46px}
+.combine .circle.accent{background:var(--indigo);color:#fff;font:800 14px Montserrat,sans-serif}
+.combine .result{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:40px;padding:0 18px;border-radius:20px;background:var(--coral);color:var(--ink);font:800 14px/40px Montserrat,sans-serif;white-space:nowrap}
+.combine .result::before{content:"";position:absolute;left:50%;top:-10px;transform:translateX(-50%);border:6px solid transparent;border-top:8px solid var(--ink)}
+
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.columns>div{border:2.5px solid var(--ink);border-radius:12px;padding:14px 11px}
+.columns h4{font:900 15px/1.2 Merriweather,serif;margin:8px 0 6px;text-align:center}
+.columns p{font-size:13.5px;line-height:1.45;text-align:left;hyphens:auto}
+.columns svg{display:block;width:44px;margin:0 auto}
+
+.myth{display:grid;grid-template-columns:26px 1fr;gap:2px 12px;margin-bottom:15px}
+.myth svg{grid-row:1/3;grid-column:1;width:26px;height:26px;margin-top:2px}
+.myth s{grid-column:2;font:17.5px/1.25 "Patrick Hand",cursive;text-decoration-color:var(--indigo);text-decoration-thickness:2.5px}
+.myth span{grid-column:2;font-size:14.5px;line-height:1.45}
+
+.sources{list-style:none;padding:0;margin:0}
+.sources li{font-size:14.5px;margin-bottom:.6em;padding-left:16px;position:relative}
+.sources li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--indigo)}
+
+/* Table of contents */
+.toc{list-style:none;padding:0;margin:0;font:15.5px Merriweather,Georgia,serif}
+.toc a{display:flex;align-items:center;gap:9px;color:inherit;text-decoration:none;padding:3px 0}
+.toc a::after{content:"";flex:1;border-top:1.5px solid var(--indigo);order:2}
+.toc .num{order:3;flex:none;width:27px;height:27px;border-radius:50%;background:var(--indigo);color:#fff;display:grid;place-items:center;font:600 10px Montserrat,sans-serif}
+.toc .sub a{padding-left:18px;font-size:14px}
+.toc-title{font:900 34px/1.1 Merriweather,serif;margin:0 0 14px}
+.page.contents .illus{margin:0 0 14px}
+
+/* Cover, chapter openers and back cover: full-bleed color */
+.page.bleed{padding:48px 34px;color:var(--ink)}
+.page.c-coral{background:var(--coral)}
+.page.c-mint{background:var(--mint)}
+.page.c-indigo{background:var(--indigo);color:#fff}
+.page.bleed .folio{color:inherit;opacity:.65}
+.chapter-title{font:900 46px/1.08 Merriweather,Georgia,serif;text-align:center;margin:0;hyphens:none;text-wrap:balance}
+.page .chapter-subtitle{font:600 12.5px Montserrat,sans-serif;text-align:center;margin-top:16px;opacity:.78}
+.page.cover{justify-content:flex-start;padding:38px 36px 34px;background:var(--indigo);color:#fff}
+.cover .disc{position:absolute;width:380px;height:380px;border-radius:50%;background:var(--coral);right:-120px;top:-92px}
+.cover .disc .illus{position:absolute;left:44px;top:120px;width:190px;margin:0}
+.cover .cover-label{position:relative;font:800 10.5px/1.5 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.cover .cover-block{margin-top:auto;position:relative}
+.cover .cover-title{font:900 52px/1.02 Merriweather,Georgia,serif;margin:0;letter-spacing:-.01em;hyphens:none;text-align:left}
+.cover .cover-title+.cover-title{color:var(--coral)}
+.cover .cover-subtitle{font:400 17px/1.45 "Source Serif 4",Georgia,serif;margin:16px 0 0;max-width:300px;text-align:left;hyphens:none;opacity:.92}
+.cover .cover-footer{display:flex;justify-content:space-between;gap:12px;border-top:1.5px solid rgba(255,255,255,.45);margin:26px 0 0;padding-top:12px;font:600 10.5px Montserrat,sans-serif;text-align:left}
+.page.back-cover{text-align:center;background:var(--indigo);color:#fff}
+.back-cover .illus{width:110px}
+.back-cover p{text-align:center;font:600 14px/1.5 Montserrat,sans-serif;max-width:300px;margin:0 auto 1em}
+
+/* Check mode (?check) */
+#check-panel{position:fixed;top:0;left:0;right:0;z-index:20;padding:10px 14px;background:#fff;color:#1B1B2F;font:600 13px Montserrat,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.15);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#check-panel button{font:inherit;border:1.5px solid var(--coral);background:#fff;border-radius:14px;padding:3px 9px;cursor:pointer}
+.page.overflow{outline:4px solid var(--coral);outline-offset:-4px}
+
+@media (prefers-reduced-motion:reduce){:root{--turn:1ms}}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3949D6">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Montserrat:wght@600;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+{{ICONS}}
+</svg>
+
+<main id="desk" aria-label="{{TITLE}}">
+  <div id="frame">
+    <div id="scaler">
+      <div id="book">
+        <div class="base left"></div>
+        <div class="base right"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<nav id="bar" aria-label="{{UI.navigation}}">
+  <button id="toc-btn" class="secondary" aria-label="{{UI.go_contents}}" title="{{UI.contents}}"><svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h9"/></svg></button>
+  <button id="prev" aria-label="{{UI.previous}}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <span id="pos" aria-live="polite">{{UI.cover}}</span>
+  <button id="next" aria-label="{{UI.next}}"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+<div id="progress"></div>
+
+<template id="pages">
+{{PAGES}}
+</template>
+
+<script>
+{{JS}}
+</script>
+</body>
+</html>

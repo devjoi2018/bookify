@@ -1,0 +1,1424 @@
+{
+  "title": "Claude Code a fondo",
+  "type": "guide",
+  "language": "es",
+  "description": "Una guía para dominar modelos, esfuerzo y la app de escritorio. Basada solo en fuentes oficiales de Anthropic.",
+  "pages": [
+    {
+      "type": "cover",
+      "title": [
+        "Claude Code",
+        "a fondo"
+      ],
+      "illustration": "cover",
+      "subtitle": "Modelos, esfuerzo y la app de escritorio, explicados con fuentes oficiales.",
+      "footer": [
+        "Noviembre 2026"
+      ],
+      "label": "Guía de estudio"
+    },
+    {
+      "type": "contents",
+      "title": "Índice",
+      "illustration": "terminal"
+    },
+    {
+      "type": "page",
+      "id": "intro",
+      "toc": "Introducción",
+      "toc_main": true,
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "window",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "text": "Introducción"
+        },
+        {
+          "type": "text",
+          "text": "Claude Code es una herramienta poderosa. Con ella puedes entender un proyecto entero en minutos. Encontrar el bug que llevas días persiguiendo. O, simplemente, quitarte de encima las tareas que no te apetece hacer.\n\nPero la misma herramienta puede darte un resultado brillante o uno mediocre. Y la diferencia casi nunca es la suerte.\n\nDe eso va esta guía."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "open-book",
+          "size": "m"
+        },
+        {
+          "type": "highlight",
+          "text": "Todo lo que vas a leer sale de **fuentes oficiales**: la documentación de Claude Code, la de la plataforma de Anthropic y su blog."
+        },
+        {
+          "type": "text",
+          "text": "Nada de trucos virales ni opiniones sueltas. Si algo no está respaldado por esas páginas, no está aquí.\n\nEso sí, los modelos cambian rápido. Al final tienes las fuentes para comprobar cualquier dato."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "map",
+          "size": "m"
+        },
+        {
+          "type": "text",
+          "text": "Primero verás unos **principios**: tres ideas que explican por qué algunas sesiones salen redondas y otras no.\n\nDespués conocerás **los modelos** y **el esfuerzo**, las dos perillas que más cambian el resultado. Luego, **la app de escritorio** a fondo y cómo preparar **tu proyecto**.\n\nAl final hay un plan de **práctica**. Porque esto se aprende usándolo."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "principios",
+      "title": "Principios",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "question",
+          "light": "¿Qué decide",
+          "bold": "el resultado?"
+        },
+        {
+          "type": "highlight",
+          "align": "center",
+          "text": "Dicho de la forma más sencilla posible, cada respuesta de Claude depende de tres palancas: el **modelo**, el **esfuerzo** y el **contexto**."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "three-levers",
+          "size": "l"
+        },
+        {
+          "type": "text",
+          "text": "El __modelo__ es qué tan capaz es el cerebro que trabaja contigo.\n\nEl __esfuerzo__ es cuánto piensa y verifica ese cerebro en cada paso.\n\nEl __contexto__ es lo que sabe de tu proyecto: tu mensaje, tus archivos de instrucciones y tus herramientas.\n\nLas tres se ajustan. Y casi siempre conviene mover una sola a la vez."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Primero el esfuerzo"
+        },
+        {
+          "type": "text",
+          "text": "Mucha gente cambia de modelo en cuanto algo sale mal. La documentación de Anthropic sugiere otra cosa."
+        },
+        {
+          "type": "highlight",
+          "text": "Mover el **esfuerzo** suele ser mejor palanca que cambiar de **modelo**."
+        },
+        {
+          "type": "text",
+          "text": "El esfuerzo cambia inteligencia por velocidad y coste **dentro del mismo modelo**. Es más fino, más barato de probar y no te obliga a empezar de cero."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Empieza inteligente"
+        },
+        {
+          "type": "text",
+          "text": "El blog oficial de Claude recomienda arrancar con el modelo más capaz y ajustar con el esfuerzo.\n\nUn modelo capaz suele necesitar **menos turnos**. Y si empiezas con uno pequeño, cuando algo falla no sabes si fue el modelo o tu configuración.\n\nCompara el **coste por tarea**, no el precio por token."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Sonnet 5 con Fable 5 como ==asesor== quedó a menos de 10% de Fable 5 solo, con el 63% del coste."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "modelos",
+      "title": "Los modelos",
+      "subtitle": "Noviembre de 2026",
+      "color": "indigo"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "sizes",
+          "items": [
+            {
+              "name": "Haiku",
+              "size": 40,
+              "opacity": 0.45
+            },
+            {
+              "name": "Sonnet",
+              "size": 56,
+              "opacity": 0.65
+            },
+            {
+              "name": "Opus",
+              "size": 74,
+              "opacity": 0.85
+            },
+            {
+              "name": "Fable",
+              "size": 94
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cuatro modelos, una familia"
+        },
+        {
+          "type": "text",
+          "text": "No están especializados por tema. Ninguno es \"el de marketing\" o \"el de programación\". Lo que cambia es **cuánta dificultad aguantan** y lo que cuestan.\n\nLos cuatro comparten 1 millón de tokens de contexto, hasta 128 mil de salida y pensamiento adaptativo."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "star",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fable 5.2"
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "**El más capaz.**"
+        },
+        {
+          "type": "text",
+          "text": "Para arquitectura, bugs misteriosos y problemas largos. Y para cuando Opus no llega."
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Alias",
+              "`fable`. Nunca es el modelo por defecto"
+            ],
+            [
+              "Precio API",
+              "$8 / $40 por millón de tokens"
+            ],
+            [
+              "Esfuerzo base",
+              "`high`"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Ojo:",
+          "text": "Puede cobrarse a créditos de uso."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "target",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Opus 5.5"
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "**El caballo de batalla.**"
+        },
+        {
+          "type": "text",
+          "text": "Es el modelo con el que arranca Claude Code en la mayoría de planes. Rinde muy bien en programación larga y en trabajo de conocimiento.\n\nSi no sabes cuál usar, empieza aquí."
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Alias",
+              "`opus`"
+            ],
+            [
+              "Precio API",
+              "$4 / $20 por millón de tokens"
+            ],
+            [
+              "Esfuerzo base",
+              "`medium`, pensamiento siempre activo"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "bolt",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Sonnet 5.5"
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "**Rápido y listo.**"
+        },
+        {
+          "type": "text",
+          "text": "La mejor mezcla de velocidad e inteligencia. Ideal para el trabajo rutinario, donde Opus sería más de lo necesario. También sirve para subagentes que trabajan en volumen."
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Alias",
+              "`sonnet`"
+            ],
+            [
+              "Precio API",
+              "$2 / $10 por millón de tokens"
+            ],
+            [
+              "Esfuerzo base",
+              "`medium` en Claude Code"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "sheet",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Haiku 5.5"
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "**El más veloz.**"
+        },
+        {
+          "type": "text",
+          "text": "Para tareas simples que se repiten mucho: clasificar, extraer datos, enrutar peticiones. O para un subagente que solo junta archivos."
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Alias",
+              "`haiku`"
+            ],
+            [
+              "Precio API",
+              "desde $0.10 / $0.50 por millón"
+            ],
+            [
+              "Esfuerzo base",
+              "`medium`"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dos detalles más"
+        },
+        {
+          "type": "text",
+          "text": "**`opusplan`** usa Opus para planear y Sonnet para ejecutar. Pensar con el grande, trabajar con el rápido.\n\n**Mythos** es el mismo modelo que Fable, pero solo para organizaciones de Project Glasswing. Fable es la versión pública, con salvaguardas adicionales.\n\nCon suscripción no pagas por token, pero los modelos grandes gastan tu límite más rápido."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "esfuerzo",
+      "title": "El esfuerzo",
+      "color": "coral"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "question",
+          "light": "¿Qué es",
+          "bold": "el esfuerzo?"
+        },
+        {
+          "type": "text",
+          "text": "Dicho de la forma más sencilla posible, el esfuerzo es __cuántos tokens está dispuesto a gastar Claude__ en una respuesta: pensando, usando herramientas y escribiendo.\n\nEs una **señal**, no un límite estricto. Con poco esfuerzo, Claude todavía piensa si el problema es difícil. Solo que piensa menos."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "dial",
+          "size": "l"
+        },
+        {
+          "type": "levels",
+          "rows": [
+            [
+              "low",
+              "El más eficiente. Pierde algo de capacidad."
+            ],
+            [
+              "medium",
+              "Equilibrado. Base de Opus, Sonnet y Haiku."
+            ],
+            [
+              "high",
+              "Gasta lo que la tarea pida."
+            ],
+            [
+              "xhigh",
+              "Para trabajos de más de 30 minutos."
+            ],
+            [
+              "max",
+              "Sin freno, al precio máximo."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "El esfuerzo no solo cambia cuánto piensa Claude. También cambia **cómo trabaja**.\n\nCon esfuerzo bajo hace menos llamadas a herramientas, las agrupa y confirma con pocas palabras.\n\nCon esfuerzo alto revisa más archivos, comprueba más casos y explica más lo que hizo."
+        },
+        {
+          "type": "highlight",
+          "text": "Más esfuerzo no siempre es mejor. Es **más cuidado**, y el cuidado cuesta tiempo."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "up",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cuándo subirlo"
+        },
+        {
+          "type": "text",
+          "text": "Sube a `high` o `xhigh` cuando acertar dependa de **casos fáciles de pasar por alto**."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Un bug en código que ==no escribiste tú==. Un test que falla a veces sí y a veces no. Un cambio de esquema donde hay que encontrar ==a todos== los que leen el formato viejo."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "down",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cuándo bajarlo"
+        },
+        {
+          "type": "text",
+          "text": "Baja a `low` cuando vas rápido y de todos modos revisas cada resultado."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Una lluvia de ideas. Un primer boceto. Renombrar algo en unos cuantos archivos."
+        },
+        {
+          "type": "space",
+          "height": 18
+        },
+        {
+          "type": "text",
+          "text": "Como tú diriges cada paso, pensar de más solo te haría esperar."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "stopwatch",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "¿Y `max`?"
+        },
+        {
+          "type": "text",
+          "text": "Guárdalo para un problema realmente duro que quieres que Claude trabaje solo. Por ejemplo, buscar una vulnerabilidad de seguridad.\n\nEn tareas normales, `max` tiende a **sobrepensar**: pagas más por una respuesta que quizá no mejora lo que te daba `high`."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "arc",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Un solo mensaje difícil"
+        },
+        {
+          "type": "text",
+          "text": "A veces todo va bien y de pronto aparece una pregunta complicada. No hace falta tocar la configuración."
+        },
+        {
+          "type": "highlight",
+          "align": "center",
+          "text": "Escribe `ultrathink` en ese mensaje."
+        },
+        {
+          "type": "text",
+          "text": "Sube el razonamiento solo para ese turno. Luego todo vuelve a tu nivel normal."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cada modelo, su punto de partida"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Fable 5.2:** empieza en `high`. Sube a `xhigh` solo si mides una mejora real.",
+            "**Opus 5.5:** `medium` para el día a día. `high` cuando importa verificar.",
+            "**Sonnet 5.5:** `medium` en tareas claras, `high` en las difíciles.",
+            "**Haiku 5.5:** `medium` para casi todo. Con `low` puede saltarse búsquedas."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cómo se cambia"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "En la app",
+              "[[Cmd]] [[Shift]] [[E]] abre el menú de esfuerzo"
+            ],
+            [
+              "En la sesión",
+              "`/effort high`, o `/effort` para el deslizador"
+            ],
+            [
+              "Al arrancar",
+              "`claude --effort xhigh`"
+            ],
+            [
+              "Por defecto",
+              "`effortLevel` en settings (hasta `xhigh`)"
+            ],
+            [
+              "Por agente",
+              "Campo `effort` en skills y subagentes"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "En Windows, cambia Cmd por Ctrl. Si chocan, gana lo de la sesión, luego tu valor guardado y al final el del modelo."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Tres errores comunes"
+        },
+        {
+          "type": "myths",
+          "items": [
+            [
+              "\"Piensa bien\", \"sé exhaustivo\"",
+              "Es texto normal, no sube el esfuerzo. La palabra que sí funciona es `ultrathink`."
+            ],
+            [
+              "Bajar el esfuerzo para respuestas cortas",
+              "El esfuerzo controla cuánto piensa, no cuánto escribe. Si quieres algo breve, pídelo."
+            ],
+            [
+              "Dejar max siempre puesto",
+              "Gastas más y puede sobrepensar."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "combinar",
+      "title": "Combinar",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "highlight",
+          "align": "center",
+          "text": "Toda buena sesión es una **combinación**: una tarea, el modelo adecuado y el esfuerzo justo."
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "**Por ejemplo:**"
+        },
+        {
+          "type": "space",
+          "height": 10
+        },
+        {
+          "type": "combine",
+          "icon": "bug",
+          "a": "Bug en código ajeno",
+          "b": "Opus",
+          "b_label": "Modelo",
+          "result": "high"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "house",
+          "a": "Arquitectura o causa raíz",
+          "b": "Fable",
+          "b_label": "Modelo",
+          "result": "high → xhigh"
+        },
+        {
+          "type": "combine",
+          "icon": "pencil",
+          "a": "Renombrar, bocetos",
+          "b": "Sonnet",
+          "b_label": "Modelo",
+          "result": "low"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "document",
+          "a": "Función con alcance claro",
+          "b": "Opus",
+          "b_label": "Modelo",
+          "result": "medium"
+        },
+        {
+          "type": "combine",
+          "icon": "magnifier",
+          "a": "Subagente que junta archivos",
+          "b": "Haiku",
+          "b_label": "Modelo",
+          "result": "low / medium"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "shield",
+          "a": "Auditoría de seguridad",
+          "b": "Fable",
+          "b_label": "u Opus",
+          "result": "max"
+        },
+        {
+          "type": "text",
+          "text": "Estas combinaciones son **puntos de partida** razonados a partir de la documentación oficial, no reglas fijas.\n\nPruébalas en tu código. Si una tarea sale igual de bien con menos, quédate con menos."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "desktop",
+      "title": "Claude Code Desktop",
+      "color": "indigo"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "tabs",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Tres pestañas"
+        },
+        {
+          "type": "text",
+          "text": "La app de escritorio tiene tres pestañas. **Chat** es para conversar. **Cowork**, para Dispatch y trabajos largos. **Code**, para desarrollar software.\n\nClaude Code Desktop es la pestaña **Code**. Necesita un plan de pago, y en Windows la primera vez te pide tener Git."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Antes del primer mensaje"
+        },
+        {
+          "type": "text",
+          "text": "Cada sesión arranca con **cuatro decisiones**:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Entorno:** dónde corre Claude.",
+            "**Carpeta:** el proyecto en el que trabaja.",
+            "**Permisos:** cuánta libertad le das.",
+            "**Modelo:** qué cerebro usas. Lo cambias a mitad de sesión con [[Cmd]] [[Shift]] [[I]]."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Pulsa Enter y empieza. Cada sesión guarda su propia historia, y puedes tener varias a la vez."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "permisos",
+      "toc": "Permisos y entornos",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cuánta libertad le das"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "**Manual**",
+              "Pregunta antes de cada edición y comando."
+            ],
+            [
+              "**Accept edits**",
+              "Acepta ediciones y comandos básicos."
+            ],
+            [
+              "**Plan**",
+              "Explora y propone, sin editar nada."
+            ],
+            [
+              "**Auto**",
+              "Sin interrupciones. Un clasificador revisa cada acción."
+            ],
+            [
+              "**Bypass**",
+              "Sin preguntas. Solo en entornos desechables."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "note",
+          "label": "Truco oficial:",
+          "text": "Empieza las tareas complejas en ==Plan==. Cuando el plan te convenza, cambia a ==Accept edits== o ==Manual==."
+        },
+        {
+          "type": "space",
+          "height": 24
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "Cambias de modo con [[Cmd]] [[Shift]] [[M]].\n\nEl modo elegido se recuerda por carpeta. Plan, en cambio, dura solo esa sesión."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "shield-check",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que Auto frena"
+        },
+        {
+          "type": "text",
+          "text": "Auto te deja trabajar sin interrupciones, pero bloquea cosas como ejecutar `curl | bash`, desplegar a producción, sobrescribir trabajo ajeno o mandar datos sensibles fuera.\n\nTambién frena lo que parece venir de algo que Claude **leyó** y no de algo que **tú pediste**.\n\nTras tres bloqueos seguidos, o veinte en total, vuelve a preguntarte."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dónde corre Claude"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Local:** en tu máquina, con acceso directo a tus archivos.",
+            "**Cloud:** en servidores de Anthropic. Sigue trabajando aunque cierres la app.",
+            "**SSH:** en una máquina remota. La app instala Claude Code allí.",
+            "**WSL:** en Windows, dentro de Linux."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Puedes guardar entornos con sus carpetas y variables para no configurarlos cada vez."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "panels",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Tu mesa de trabajo"
+        },
+        {
+          "type": "text",
+          "text": "La pantalla se arma con **paneles**: chat, cambios, navegador, terminal, archivos, plan y tareas. Los arrastras y los cambias de tamaño.\n\nCon [[Ctrl]] [[O]] cambias la vista. La vista **Thinking** muestra cómo razona Claude: ideal para aprender."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Revisa como un editor"
+        },
+        {
+          "type": "text",
+          "text": "Abre los cambios tocando los contadores tipo `+12 -1`. Pasa el cursor por una línea, pulsa **+** y deja un comentario.\n\nEnvía todos juntos con [[Cmd]] [[Enter]]. Claude los aplica y te muestra el diff nuevo.\n\n¿Otra mirada? `/code-review` revisa el trabajo y te deja recorrer cada hallazgo o aplicar los arreglos."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Mira tu app funcionando"
+        },
+        {
+          "type": "text",
+          "text": "En el panel de navegador, Claude arranca tu servidor y ve la app como tú: toma capturas, hace clic y lee los logs. Con **Auto-verify** comprueba cada cambio.\n\nCon un **pull request** abierto ves el estado de CI en la sesión. **Auto-fix** corrige lo que falla y **Merge when ready** lo fusiona al pasar. Necesitas `gh` instalado."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "branches",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Varias cosas a la vez"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Worktree:** una copia aislada del repo, para que dos sesiones no se pisen.",
+            "**Side chat:** [[Cmd]] [[;]] para preguntar sin ensuciar la conversación.",
+            "**Remote Control:** sigues una sesión local desde el móvil.",
+            "**Dispatch:** mandas tareas desde el teléfono (Pro y Max)."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "atajos",
+      "toc": "Atajos",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Atajos para memorizar"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "[[Cmd]] [[/]]",
+              "Ver todos los atajos"
+            ],
+            [
+              "[[Cmd]] [[Shift]] [[I]]",
+              "Modelo"
+            ],
+            [
+              "[[Cmd]] [[Shift]] [[E]]",
+              "Esfuerzo"
+            ],
+            [
+              "[[Cmd]] [[Shift]] [[M]]",
+              "Permisos"
+            ],
+            [
+              "[[Esc]]",
+              "Detener a Claude"
+            ],
+            [
+              "[[Ctrl]] [[`]]",
+              "Terminal"
+            ],
+            [
+              "[[Cmd]] [[;]]",
+              "Side chat"
+            ],
+            [
+              "[[Cmd]] [[N]]",
+              "Nueva sesión"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "En Windows, cambia Cmd por Ctrl."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dale más alcance"
+        },
+        {
+          "type": "text",
+          "text": "Desde **Customize**, en la barra lateral, manejas tres cosas:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Conectores:** enlazan a Claude con tus otras apps.",
+            "**Skills:** procedimientos guardados. Escribe `/` para verlas.",
+            "**Plugins:** paquetes que suman skills, agentes y más."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Con Pro o Max, **computer use** deja que Claude use apps de tu escritorio cuando ninguna otra herramienta sirve."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "proyecto",
+      "title": "Tu proyecto",
+      "color": "coral"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "highlight",
+          "align": "center",
+          "text": "Toda instrucción que le das a Claude cae en uno de dos grupos."
+        },
+        {
+          "type": "columns",
+          "columns": [
+            {
+              "icon": "brain",
+              "title": "Claude decide",
+              "text": "Tu mensaje, `CLAUDE.md` y las skills. Casi siempre los sigue, sin garantía. Para **guías con excepciones**."
+            },
+            {
+              "icon": "lock",
+              "title": "Claude Code obliga",
+              "text": "Hooks, reglas *deny* y ajustes gestionados. Se cumplen siempre. Para lo que **nunca o siempre** debe pasar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "claude-md",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Un CLAUDE.md corto"
+        },
+        {
+          "type": "text",
+          "text": "Claude lo lee en cada sesión. Escribe solo lo que **no puede descubrir leyendo el código**:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Los comandos de tests, tipos y lint.",
+            "Patrones viejos que no hay que copiar.",
+            "Decisiones que no están en el repo.",
+            "Lo que ya corregiste dos veces."
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "`/init` te da un borrador. Luego recorta: menos de 200 líneas."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cada cosa en su sitio"
+        },
+        {
+          "type": "list",
+          "items": [
+            "`CLAUDE.local.md`: tus preferencias, fuera del repo.",
+            "`.claude/rules/`: reglas de una sola carpeta.",
+            "**Skills:** procesos del equipo, como un release.",
+            "**Hooks:** pasos obligatorios, como formatear.",
+            "**Reglas deny:** lo prohibido, como leer `.env`."
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Señal:",
+          "text": "Si añades ==IMPORTANTE== a una línea y Claude la sigue ignorando, esa línea quiere ser un hook."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "check",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dale algo que comprobar"
+        },
+        {
+          "type": "text",
+          "text": "Claude se detiene cuando el trabajo **parece** terminado. Si no puede comprobarlo, tú te conviertes en su único test.\n\nDale algo que diga \"pasa\" o \"falla\": una prueba, un build, un linter, una captura junto al diseño.\n\nY pide siempre **evidencia**: el comando que corrió y lo que salió."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "sesion",
+      "title": "Dirigir la sesión",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "esc-key",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Mira el primer minuto"
+        },
+        {
+          "type": "text",
+          "text": "Observa cómo arranca Claude y pulsa [[Esc]] en cuanto se desvíe. Se detiene y conserva lo hecho."
+        },
+        {
+          "type": "highlight",
+          "text": "Si ya lo corregiste dos veces y sigue mal, no lo corrijas una tercera."
+        },
+        {
+          "type": "text",
+          "text": "Usa `/clear` y escribe un mensaje nuevo con lo que aprendiste."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Tus comandos de cabecera"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`/rewind`",
+              "Vuelve atrás código, conversación o ambos."
+            ],
+            [
+              "`/clear`",
+              "Empieza de cero entre tareas distintas."
+            ],
+            [
+              "`/compact`",
+              "Resume la conversación. Dile qué conservar."
+            ],
+            [
+              "`/usage`",
+              "Muestra en qué se fue tu consumo."
+            ],
+            [
+              "`/context`",
+              "Cuánto contexto llevas y qué se cargó."
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "Ojo: `/rewind` no deshace lo que cambió un comando de terminal."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Pide con precisión"
+        },
+        {
+          "type": "text",
+          "text": "Un buen mensaje le da a Claude lo que no puede ver: el archivo, el síntoma y qué significa \"arreglado\"."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "En vez de ==\"arregla el login\"==: \"falla al expirar la sesión. Revisa el token en src/auth/, escribe una prueba que lo reproduzca y arréglalo.\""
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dos frases que sí ayudan"
+        },
+        {
+          "type": "text",
+          "text": "**\"Sé ambicioso.\"** Claude tiende a construir lo mínimo que cumple. Si quieres la versión completa, con errores y casos límite, díselo.\n\n**\"Entrevístame hasta que puedas escribir la especificación.\"** Para cuando aún no sabes bien qué quieres. Luego abre una sesión limpia y construye desde ese `SPEC.md`."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Sobre los subagentes"
+        },
+        {
+          "type": "text",
+          "text": "Sirven para trabajar en paralelo, sacar resultados largos de la conversación o tener un revisor con ojos frescos."
+        },
+        {
+          "type": "highlight",
+          "text": "Lo que no hacen es darte una respuesta más inteligente."
+        },
+        {
+          "type": "text",
+          "text": "Usan el mismo modelo o uno menor. Para ahorrar, pon `model: haiku` en los que hacen trabajo simple."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "mitos",
+      "title": "Mitos",
+      "subtitle": "Consejos que ya puedes olvidar",
+      "color": "indigo"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tuvieron sentido con modelos anteriores. Hoy, según la documentación oficial, ya no hacen falta."
+        },
+        {
+          "type": "myths",
+          "items": [
+            [
+              "Cuidar el contexto como oro",
+              "Hay 1 millón de tokens y se resume solo."
+            ],
+            [
+              "Escribir en MAYÚSCULAS",
+              "Hace que aplique la regla de más. Si no puede fallar, usa un hook."
+            ],
+            [
+              "\"Sigue hasta terminar\"",
+              "Provoca trabajo de más. Mejor dale una prueba que pasar."
+            ],
+            [
+              "Describir la arquitectura",
+              "Claude lee el repo solo, y rápido."
+            ],
+            [
+              "Delegar para pensar mejor",
+              "Es el mismo cerebro. Ayuda un revisor fresco."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "practica",
+      "title": "Práctica",
+      "subtitle": "Cinco sesiones en tu propio proyecto",
+      "color": "coral"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "weight",
+          "size": "s"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Conoce tu proyecto.** Modo Plan, Opus en `medium`. Pide que te explique la arquitectura. Activa la vista Thinking y corre `/init`.",
+            "**Compara esfuerzos.** Un bug real, una vez con `low` y otra con `high` en un worktree. Mira diff, tiempo y `/usage`."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": true,
+          "start": 3,
+          "items": [
+            "**Compara modelos.** La misma tarea con Sonnet, Opus y Fable. Anota calidad, tiempo y consumo.",
+            "**Pon reglas.** Tus comandos en el CLAUDE.md, un Stop hook de tipos y una regla deny para `.env`.",
+            "**El flujo completo.** Worktree, comentarios en el diff, `/code-review` y un PR con Auto-fix."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "fuentes",
+      "toc": "Epílogo y fuentes",
+      "toc_main": true,
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "notebook",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "text": "Epílogo"
+        },
+        {
+          "type": "text",
+          "text": "Ninguna guía te enseña a dominar una herramienta. Te enseña dónde mirar.\n\nLo demás sale de usarla. Probar un modelo, ajustar el esfuerzo, ver qué cambia. Y volver a probar."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fuentes oficiales"
+        },
+        {
+          "type": "footnote",
+          "text": "Todas de Anthropic, consultadas el 23 de noviembre de 2026."
+        },
+        {
+          "type": "sources",
+          "items": [
+            [
+              "Models overview",
+              "https://platform.claude.com/docs/en/models/overview"
+            ],
+            [
+              "Choosing a model",
+              "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+            ],
+            [
+              "Effort",
+              "https://platform.claude.com/docs/en/build-with-claude/effort"
+            ],
+            [
+              "Claude models explained",
+              "https://claude.com/blog/claude-models-explained"
+            ],
+            [
+              "Model configuration",
+              "https://code.claude.com/docs/en/model-config"
+            ],
+            [
+              "Claude Code Desktop",
+              "https://code.claude.com/docs/en/desktop"
+            ],
+            [
+              "Best practices for Claude Code",
+              "https://code.claude.com/docs/en/best-practices"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "Diseño y tono inspirados en *Proceso creativo*, de Eduardo Salles. Contenido original."
+        }
+      ]
+    },
+    {
+      "type": "back-cover",
+      "illustration": "terminal",
+      "text": "Una idea por página. Fuentes oficiales. Para leer en cualquier pantalla."
+    }
+  ]
+}
