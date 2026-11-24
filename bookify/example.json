@@ -1,26 +1,27 @@
 {
-  "title": "Claude Code a fondo",
-  "type": "guide",
+  "title": "Bookify paso a paso",
+  "type": "manual",
   "language": "es",
-  "description": "Una guía para dominar modelos, esfuerzo y la app de escritorio. Basada solo en fuentes oficiales de Anthropic.",
+  "description": "Qué es Bookify, cómo se instala, cómo se prepara una carpeta de libros, cómo se arma un libro y cómo se genera el HTML final. Hecho con el propio Bookify.",
   "pages": [
     {
       "type": "cover",
+      "label": "Manual",
       "title": [
-        "Claude Code",
-        "a fondo"
+        "Bookify",
+        "paso a paso"
       ],
       "illustration": "cover",
-      "subtitle": "Modelos, esfuerzo y la app de escritorio, explicados con fuentes oficiales.",
+      "subtitle": "De una conversación con tu IA a un libro ilustrado. Explicado con este mismo libro.",
       "footer": [
-        "Noviembre 2026"
-      ],
-      "label": "Guía de estudio"
+        "Noviembre 2026",
+        "Versión 1.0.0"
+      ]
     },
     {
       "type": "contents",
       "title": "Índice",
-      "illustration": "terminal"
+      "illustration": "open-book"
     },
     {
       "type": "page",
@@ -30,8 +31,8 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "window",
-          "size": "m"
+          "src": "chat-to-book",
+          "size": "l"
         },
         {
           "type": "heading",
@@ -39,7 +40,7 @@
         },
         {
           "type": "text",
-          "text": "Claude Code es una herramienta poderosa. Con ella puedes entender un proyecto entero en minutos. Encontrar el bug que llevas días persiguiendo. O, simplemente, quitarte de encima las tareas que no te apetece hacer.\n\nPero la misma herramienta puede darte un resultado brillante o uno mediocre. Y la diferencia casi nunca es la suerte.\n\nDe eso va esta guía."
+          "text": "Investigar con una IA es rápido. Leer lo que responde cuesta más: respuestas largas, ideas enterradas y un tono que suena a relleno.\n\nBookify toma esa conversación y la convierte en un libro corto, ilustrado y con una idea por página.\n\nDe eso va este manual."
         }
       ]
     },
@@ -48,16 +49,21 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "open-book",
-          "size": "m"
+          "src": "magnifier",
+          "size": "s"
         },
         {
           "type": "highlight",
-          "text": "Todo lo que vas a leer sale de **fuentes oficiales**: la documentación de Claude Code, la de la plataforma de Anthropic y su blog."
+          "text": "Este libro está hecho **con Bookify**, a partir de sus propios archivos y de su código."
         },
         {
           "type": "text",
-          "text": "Nada de trucos virales ni opiniones sueltas. Si algo no está respaldado por esas páginas, no está aquí.\n\nEso sí, los modelos cambian rápido. Al final tienes las fuentes para comprobar cualquier dato."
+          "text": "Todo lo que vas a leer sale del repositorio: las instrucciones de la skill, el instalador y el motor que construye los libros."
+        },
+        {
+          "type": "note",
+          "label": "Truco:",
+          "text": "Su fuente está en la carpeta ==examples/books== del repositorio. Ábrela y compara cada página con el JSON que la produce."
         }
       ]
     },
@@ -70,15 +76,64 @@
           "size": "m"
         },
         {
+          "type": "heading",
+          "level": 2,
+          "text": "El recorrido"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Qué es Bookify y qué problema resuelve.",
+            "Instalarlo en tu herramienta.",
+            "Preparar tu carpeta de libros.",
+            "Cómo se arma un libro: capítulos, páginas y bloques.",
+            "La salida final: construir, comprobar y compartir."
+          ]
+        },
+        {
           "type": "text",
-          "text": "Primero verás unos **principios**: tres ideas que explican por qué algunas sesiones salen redondas y otras no.\n\nDespués conocerás **los modelos** y **el esfuerzo**, las dos perillas que más cambian el resultado. Luego, **la app de escritorio** a fondo y cómo preparar **tu proyecto**.\n\nAl final hay un plan de **práctica**. Porque esto se aprende usándolo."
+          "text": "Cada capítulo se apoya en el anterior. Léelos en orden."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "antes",
+      "toc": "Antes de empezar",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "check",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Antes de empezar"
+        },
+        {
+          "type": "text",
+          "text": "Necesitas dos cosas:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Python 3.9 o superior.** Bookify no instala ningún paquete: todo usa la biblioteca estándar.",
+            "**Una de estas herramientas:** Claude Code, Command Code, OpenCode o GitHub Copilot en VS Code."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Para instalar y actualizar necesitas internet. Para leer los libros, no."
         }
       ]
     },
     {
       "type": "chapter",
-      "id": "principios",
-      "title": "Principios",
+      "id": "que-es",
+      "title": "Qué es Bookify",
+      "subtitle": "La idea y las piezas",
       "color": "mint"
     },
     {
@@ -86,13 +141,18 @@
       "blocks": [
         {
           "type": "question",
-          "light": "¿Qué decide",
-          "bold": "el resultado?"
+          "light": "¿Qué es",
+          "bold": "Bookify?"
         },
         {
           "type": "highlight",
           "align": "center",
-          "text": "Dicho de la forma más sencilla posible, cada respuesta de Claude depende de tres palancas: el **modelo**, el **esfuerzo** y el **contexto**."
+          "text": "Dicho de la forma más sencilla posible, __Bookify es una skill que convierte una investigación en un libro digital ilustrado__."
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "Un solo archivo **HTML**, con paso de página, que se abre en cualquier navegador."
         }
       ]
     },
@@ -101,98 +161,168 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "three-levers",
-          "size": "l"
+          "src": "skill",
+          "size": "s"
         },
-        {
-          "type": "text",
-          "text": "El __modelo__ es qué tan capaz es el cerebro que trabaja contigo.\n\nEl __esfuerzo__ es cuánto piensa y verifica ese cerebro en cada paso.\n\nEl __contexto__ es lo que sabe de tu proyecto: tu mensaje, tus archivos de instrucciones y tus herramientas.\n\nLas tres se ajustan. Y casi siempre conviene mover una sola a la vez."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
         {
           "type": "heading",
           "level": 2,
-          "text": "Primero el esfuerzo"
+          "text": "Qué es una skill"
         },
         {
           "type": "text",
-          "text": "Mucha gente cambia de modelo en cuanto algo sale mal. La documentación de Anthropic sugiere otra cosa."
-        },
-        {
-          "type": "highlight",
-          "text": "Mover el **esfuerzo** suele ser mejor palanca que cambiar de **modelo**."
-        },
-        {
-          "type": "text",
-          "text": "El esfuerzo cambia inteligencia por velocidad y coste **dentro del mismo modelo**. Es más fino, más barato de probar y no te obliga a empezar de cero."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Empieza inteligente"
-        },
-        {
-          "type": "text",
-          "text": "El blog oficial de Claude recomienda arrancar con el modelo más capaz y ajustar con el esfuerzo.\n\nUn modelo capaz suele necesitar **menos turnos**. Y si empiezas con uno pequeño, cuando algo falla no sabes si fue el modelo o tu configuración.\n\nCompara el **coste por tarea**, no el precio por token."
+          "text": "Una __skill__ es una carpeta con instrucciones que tu asistente lee cuando las necesita. Su archivo principal se llama `SKILL.md`.\n\nBookify sigue el estándar **Agent Skills**. Por eso la misma carpeta funciona en cuatro herramientas distintas."
         },
         {
           "type": "note",
           "label": "Por ejemplo:",
-          "text": "Sonnet 5 con Fable 5 como ==asesor== quedó a menos de 10% de Fable 5 solo, con el 63% del coste."
+          "text": "Cuando escribes ==convierte esto en libro==, el asistente reconoce la petición por la descripción de `SKILL.md` y carga la skill."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "chat",
+          "a": "Lo que investigaste",
+          "b": "Bookify",
+          "b_label": "Reglas de escritura y diseño",
+          "result": "Un libro claro"
+        },
+        {
+          "type": "text",
+          "text": "Tú pones el contenido. Bookify pone el método: cómo escribir, cómo ordenar y cómo se ve el resultado.\n\nAsí no tienes que pedir cinco veces que te lo expliquen más simple."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que hay dentro"
+        },
+        {
+          "type": "text",
+          "text": "La carpeta `bookify/` es la skill completa. Es lo que se instala."
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`SKILL.md`",
+              "Qué hacer según el pedido y el flujo de trabajo"
+            ],
+            [
+              "`style.md`",
+              "El tono y el ritmo de escritura"
+            ],
+            [
+              "`structures.md`",
+              "La estructura de cada tipo de libro"
+            ],
+            [
+              "`format.md`",
+              "El formato de `content.json` y sus bloques"
+            ],
+            [
+              "`review.md`",
+              "La revisión antes de entregar"
+            ],
+            [
+              "`engine/`",
+              "El motor que construye el HTML y la plantilla"
+            ],
+            [
+              "`install.py`",
+              "El instalador y actualizador"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "columns",
+          "columns": [
+            {
+              "icon": "pencil",
+              "title": "El asistente escribe",
+              "text": "Redacta el contenido en `content.json` y dibuja los SVG."
+            },
+            {
+              "icon": "document",
+              "title": "El motor construye",
+              "text": "Pone el diseño, la animación, los números de página y el índice."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Esta separación es la clave. El asistente **nunca escribe HTML, CSS ni JS** para un libro.\n\nPor eso todos los libros comparten el mismo sello."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que no hace"
+        },
+        {
+          "type": "myths",
+          "items": [
+            [
+              "Inventa información para rellenar",
+              "Cuenta lo que se investigó. Si falta un dato, no lo pone."
+            ],
+            [
+              "Cambia de diseño en cada libro",
+              "La paleta, las tipografías y la portada son siempre las mismas."
+            ],
+            [
+              "Necesita instalar paquetes",
+              "Solo usa la biblioteca estándar de Python."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Ojo con lo que entra: si la conversación trae datos dudosos, el libro también."
         }
       ]
     },
     {
       "type": "chapter",
-      "id": "modelos",
-      "title": "Los modelos",
-      "subtitle": "Noviembre de 2026",
+      "id": "instalar",
+      "title": "Instalarlo",
+      "subtitle": "Un comando y listo",
       "color": "indigo"
     },
     {
       "type": "page",
       "blocks": [
         {
-          "type": "sizes",
-          "items": [
-            {
-              "name": "Haiku",
-              "size": 40,
-              "opacity": 0.45
-            },
-            {
-              "name": "Sonnet",
-              "size": 56,
-              "opacity": 0.65
-            },
-            {
-              "name": "Opus",
-              "size": 74,
-              "opacity": 0.85
-            },
-            {
-              "name": "Fable",
-              "size": 94
-            }
-          ]
+          "type": "illustration",
+          "src": "terminal",
+          "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Cuatro modelos, una familia"
+          "text": "Paso 1 · Abre una terminal"
         },
         {
           "type": "text",
-          "text": "No están especializados por tema. Ninguno es \"el de marketing\" o \"el de programación\". Lo que cambia es **cuánta dificultad aguantan** y lo que cuestan.\n\nLos cuatro comparten 1 millón de tokens de contexto, hasta 128 mil de salida y pensamiento adaptativo."
+          "text": "En Windows, abre **PowerShell**. En macOS o Linux, abre la **Terminal**.\n\nNo necesitas descargar el repositorio. El comando del siguiente paso lo hace por ti."
         }
       ]
     },
@@ -201,44 +331,82 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "star",
+          "src": "download",
           "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Fable 5.2"
+          "text": "Paso 2 · Ejecuta el instalador"
         },
         {
           "type": "text",
-          "align": "center",
-          "text": "**El más capaz.**"
+          "text": "Copia el comando de tu sistema. Este instala Bookify para Claude Code:"
         },
         {
-          "type": "text",
-          "text": "Para arquitectura, bugs misteriosos y problemas largos. Y para cuando Opus no llega."
-        },
-        {
-          "type": "facts",
+          "type": "table",
           "rows": [
             [
-              "Alias",
-              "`fable`. Nunca es el modelo por defecto"
+              "Windows (PowerShell)",
+              "`irm …/install.py`\n`| python - --tool claude`"
             ],
             [
-              "Precio API",
-              "$8 / $40 por millón de tokens"
-            ],
-            [
-              "Esfuerzo base",
-              "`high`"
+              "macOS o Linux",
+              "`curl -fsSL …/install.py`\n`| python3 - --tool claude`"
             ]
           ]
         },
         {
           "type": "note",
-          "label": "Ojo:",
-          "text": "Puede cobrarse a créditos de uso."
+          "label": "Truco:",
+          "text": "La dirección completa de `install.py` está en el ==README== del repositorio. Cópiala de ahí."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Paso 3 · Elige tu herramienta"
+        },
+        {
+          "type": "text",
+          "text": "Cambia `claude` por el valor de la herramienta que uses:"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "Claude Code",
+              "`claude`"
+            ],
+            [
+              "Command Code",
+              "`commandcode`"
+            ],
+            [
+              "OpenCode",
+              "`opencode`"
+            ],
+            [
+              "GitHub Copilot",
+              "`copilot`"
+            ],
+            [
+              "Varias a la vez",
+              "`claude,copilot`"
+            ],
+            [
+              "Todas",
+              "`all`"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "Si ejecutas `install.py` en una terminal sin `--tool`, te pregunta cuál quieres con un menú numerado."
         }
       ]
     },
@@ -247,39 +415,67 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "target",
+          "src": "skill",
           "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Opus 5.5"
+          "text": "Qué hace el instalador"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Descarga el **último release** del repositorio en GitHub.",
+            "Copia la carpeta `bookify/` en la carpeta de skills de tu herramienta.",
+            "Cambia `{{SKILL_DIR}}` por la ruta real donde quedó instalada.",
+            "Anota la instalación en `~/.bookify/installs.json`."
+          ]
         },
         {
           "type": "text",
-          "align": "center",
-          "text": "**El caballo de batalla.**"
+          "text": "Ese registro es el que después usa la actualización."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dónde queda"
         },
         {
           "type": "text",
-          "text": "Es el modelo con el que arranca Claude Code en la mayoría de planes. Rinde muy bien en programación larga y en trabajo de conocimiento.\n\nSi no sabes cuál usar, empieza aquí."
+          "text": "Por defecto se instala para tu usuario y sirve en todos tus proyectos:"
         },
         {
-          "type": "facts",
+          "type": "table",
           "rows": [
             [
-              "Alias",
-              "`opus`"
+              "Claude Code",
+              "`~/.claude/skills/`"
             ],
             [
-              "Precio API",
-              "$4 / $20 por millón de tokens"
+              "Command Code",
+              "`~/.commandcode/skills/`"
             ],
             [
-              "Esfuerzo base",
-              "`medium`, pensamiento siempre activo"
+              "OpenCode",
+              "`~/.config/opencode/skills/`"
+            ],
+            [
+              "GitHub Copilot",
+              "`~/.copilot/skills/`"
             ]
           ]
+        },
+        {
+          "type": "text",
+          "text": "Dentro de cada una aparece una carpeta `bookify`. Ya verás cómo instalarlo solo en un proyecto."
         }
       ]
     },
@@ -288,39 +484,22 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "bolt",
+          "src": "window",
           "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Sonnet 5.5"
+          "text": "Paso 4 · Reinicia la herramienta"
         },
         {
           "type": "text",
-          "align": "center",
-          "text": "**Rápido y listo.**"
+          "text": "Cierra y vuelve a abrir tu herramienta, o abre una sesión nueva. Así carga la skill."
         },
         {
-          "type": "text",
-          "text": "La mejor mezcla de velocidad e inteligencia. Ideal para el trabajo rutinario, donde Opus sería más de lo necesario. También sirve para subagentes que trabajan en volumen."
-        },
-        {
-          "type": "facts",
-          "rows": [
-            [
-              "Alias",
-              "`sonnet`"
-            ],
-            [
-              "Precio API",
-              "$2 / $10 por millón de tokens"
-            ],
-            [
-              "Esfuerzo base",
-              "`medium` en Claude Code"
-            ]
-          ]
+          "type": "note",
+          "label": "Señal:",
+          "text": "Sabrás que funcionó cuando el instalador muestre una línea con ✓, la ruta y la versión, y `/bookify version` responda ==1.0.0==."
         }
       ]
     },
@@ -329,39 +508,21 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "sheet",
+          "src": "update",
           "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Haiku 5.5"
+          "text": "Mantenerlo al día"
         },
         {
           "type": "text",
-          "align": "center",
-          "text": "**El más veloz.**"
+          "text": "Escribe `/bookify update` en tu asistente. Primero comprueba si hay una versión nueva en GitHub.\n\nSi la hay, te resume las novedades y la instala en **todas** las herramientas registradas. Tus libros no se tocan."
         },
         {
-          "type": "text",
-          "text": "Para tareas simples que se repiten mucho: clasificar, extraer datos, enrutar peticiones. O para un subagente que solo junta archivos."
-        },
-        {
-          "type": "facts",
-          "rows": [
-            [
-              "Alias",
-              "`haiku`"
-            ],
-            [
-              "Precio API",
-              "desde $0.10 / $0.50 por millón"
-            ],
-            [
-              "Esfuerzo base",
-              "`medium`"
-            ]
-          ]
+          "type": "footnote",
+          "text": "Compara el último release con la instalación más antigua que tengas, para que ninguna se quede atrás."
         }
       ]
     },
@@ -371,31 +532,92 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Dos detalles más"
+          "text": "Si algo falla"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`python` no responde",
+              "Prueba `python3`, o `py` en Windows"
+            ],
+            [
+              "Pide nombrar la herramienta",
+              "Añade `--tool` con su valor"
+            ],
+            [
+              "No hay versiones publicadas",
+              "Aún no existe un release en GitHub"
+            ],
+            [
+              "La skill no aparece",
+              "Reinicia la herramienta"
+            ],
+            [
+              "Quieres quitarlo",
+              "Usa `--uninstall` con `--tool`"
+            ]
+          ]
         },
         {
           "type": "text",
-          "text": "**`opusplan`** usa Opus para planear y Sonnet para ejecutar. Pensar con el grande, trabajar con el rápido.\n\n**Mythos** es el mismo modelo que Fable, pero solo para organizaciones de Project Glasswing. Fable es la versión pública, con salvaguardas adicionales.\n\nCon suscripción no pagas por token, pero los modelos grandes gastan tu límite más rápido."
+          "text": "Desinstalar borra la skill, pero deja tus carpetas `books/` y `output/` como estaban."
         }
       ]
     },
     {
       "type": "chapter",
-      "id": "esfuerzo",
-      "title": "El esfuerzo",
+      "id": "carpeta",
+      "title": "Tu carpeta de libros",
+      "subtitle": "Dónde vive cada libro",
       "color": "coral"
     },
     {
       "type": "page",
       "blocks": [
         {
-          "type": "question",
-          "light": "¿Qué es",
-          "bold": "el esfuerzo?"
+          "type": "illustration",
+          "src": "folder",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Trabaja donde estás"
         },
         {
           "type": "text",
-          "text": "Dicho de la forma más sencilla posible, el esfuerzo es __cuántos tokens está dispuesto a gastar Claude__ en una respuesta: pensando, usando herramientas y escribiendo.\n\nEs una **señal**, no un límite estricto. Con poco esfuerzo, Claude todavía piensa si el problema es difícil. Solo que piensa menos."
+          "text": "El motor trabaja en la **carpeta abierta** en tu herramienta. Ahí crea dos carpetas:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "`books/`: la fuente de cada libro, la que se edita.",
+            "`output/`: los libros terminados, listos para compartir."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Una carpeta puede guardar todos los libros que quieras."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Para un solo proyecto"
+        },
+        {
+          "type": "text",
+          "text": "Si quieres que Bookify solo exista en una carpeta, añade `--project` al comando de instalación.\n\nEntonces se instala dentro de esa carpeta, por ejemplo en `.claude/skills/` o en `.github/skills/` para Copilot."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Una carpeta llamada ==Mis investigaciones== con Bookify instalado dentro. Cada tema que investigas termina como un libro más en su estantería."
         }
       ]
     },
@@ -404,102 +626,109 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "dial",
-          "size": "l"
+          "src": "pencil",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Crear un libro"
+        },
+        {
+          "type": "text",
+          "text": "Normalmente lo hace el asistente. Por dentro, le pide al motor un libro nuevo con tres datos: el nombre, el tipo y el idioma.\n\nEste libro se creó así, como un manual en español. El motor respondió:"
+        },
+        {
+          "type": "note",
+          "label": "Dato:",
+          "text": "Created: books/Bookify paso a paso (manual, es). Write content.json, then build."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que se crea"
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Carpeta",
+              "`books/<Nombre>/`"
+            ],
+            [
+              "Contenido",
+              "`content.json`, con portada, índice, un capítulo, fuentes y contraportada de muestra"
+            ],
+            [
+              "Dibujos",
+              "`images/`, vacía al principio"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "El JSON inicial es solo un esqueleto. El trabajo de verdad es llenarlo."
+        },
+        {
+          "type": "footnote",
+          "text": "Si ya existe un `content.json` con ese nombre, el motor no lo pisa: avisa con un error."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Elige el tipo"
+        },
+        {
+          "type": "text",
+          "text": "El tipo lo decide **el contenido**, no el tema:"
         },
         {
           "type": "levels",
           "rows": [
             [
-              "low",
-              "El más eficiente. Pierde algo de capacidad."
+              "guide",
+              "Entender un tema y saber decidir"
             ],
             [
-              "medium",
-              "Equilibrado. Base de Opus, Sonnet y Haiku."
+              "manual",
+              "Hacer algo sin perderse, como este libro"
             ],
             [
-              "high",
-              "Gasta lo que la tarea pida."
+              "story",
+              "Seguir un hilo de hechos o un relato"
             ],
             [
-              "xhigh",
-              "Para trabajos de más de 30 minutos."
+              "explainer",
+              "Que una idea difícil se entienda"
             ],
             [
-              "max",
-              "Sin freno, al precio máximo."
+              "research",
+              "Contar un hallazgo o un estudio"
+            ],
+            [
+              "other",
+              "Lo que no encaja en los anteriores"
             ]
           ]
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "text",
-          "text": "El esfuerzo no solo cambia cuánto piensa Claude. También cambia **cómo trabaja**.\n\nCon esfuerzo bajo hace menos llamadas a herramientas, las agrupa y confirma con pocas palabras.\n\nCon esfuerzo alto revisa más archivos, comprueba más casos y explica más lo que hizo."
-        },
-        {
-          "type": "highlight",
-          "text": "Más esfuerzo no siempre es mejor. Es **más cuidado**, y el cuidado cuesta tiempo."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "up",
-          "size": "s"
-        },
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Cuándo subirlo"
-        },
-        {
-          "type": "text",
-          "text": "Sube a `high` o `xhigh` cuando acertar dependa de **casos fáciles de pasar por alto**."
-        },
-        {
-          "type": "note",
-          "label": "Por ejemplo:",
-          "text": "Un bug en código que ==no escribiste tú==. Un test que falla a veces sí y a veces no. Un cambio de esquema donde hay que encontrar ==a todos== los que leen el formato viejo."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "down",
-          "size": "s"
-        },
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Cuándo bajarlo"
-        },
-        {
-          "type": "text",
-          "text": "Baja a `low` cuando vas rápido y de todos modos revisas cada resultado."
-        },
-        {
-          "type": "note",
-          "label": "Por ejemplo:",
-          "text": "Una lluvia de ideas. Un primer boceto. Renombrar algo en unos cuantos archivos."
         },
         {
           "type": "space",
-          "height": 18
+          "height": 12
         },
         {
           "type": "text",
-          "text": "Como tú diriges cada paso, pensar de más solo te haría esperar."
+          "text": "El tipo pone la etiqueta de la portada y guía la estructura."
         }
       ]
     },
@@ -508,17 +737,84 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "stopwatch",
-          "size": "s"
+          "src": "languages",
+          "size": "l"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "¿Y `max`?"
+          "text": "Elige el idioma"
         },
         {
           "type": "text",
-          "text": "Guárdalo para un problema realmente duro que quieres que Claude trabaje solo. Por ejemplo, buscar una vulnerabilidad de seguridad.\n\nEn tareas normales, `max` tiende a **sobrepensar**: pagas más por una respuesta que quizá no mejora lo que te daba `high`."
+          "text": "El libro se escribe en el idioma en que hablas con tu asistente. Su código va en `language`.\n\nEl motor trae los textos del lector en español, inglés y portugués: botones, \"Portada\", \"Fin\". Para otro idioma, el JSON añade `ui` con las traducciones."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "armar",
+      "title": "Cómo se arma un libro",
+      "subtitle": "Capítulos, páginas y bloques",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "json",
+          "size": "m"
+        },
+        {
+          "type": "question",
+          "light": "¿Qué hay en",
+          "bold": "content.json?"
+        },
+        {
+          "type": "text",
+          "text": "Solo **contenido**. Un título, un tipo, un idioma, una descripción y una lista de páginas.\n\nLas claves van en inglés. Los textos, en el idioma del libro."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cinco tipos de página"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`cover`",
+              "La portada: etiqueta, título, subtítulo, dibujo y pie"
+            ],
+            [
+              "`contents`",
+              "El índice, que el motor arma solo"
+            ],
+            [
+              "`chapter`",
+              "La apertura de un capítulo, a todo color"
+            ],
+            [
+              "`page`",
+              "Todo lo demás: una lista de bloques"
+            ],
+            [
+              "`back-cover`",
+              "La contraportada, con una o dos frases"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "La portada de este libro es un `cover` con la etiqueta ==Manual== y el título en dos líneas: la segunda sale en coral."
         }
       ]
     },
@@ -533,39 +829,74 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Un solo mensaje difícil"
+          "text": "Un mismo esqueleto"
         },
         {
           "type": "text",
-          "text": "A veces todo va bien y de pronto aparece una pregunta complicada. No hace falta tocar la configuración."
-        },
-        {
-          "type": "highlight",
-          "align": "center",
-          "text": "Escribe `ultrathink` en ese mensaje."
-        },
-        {
-          "type": "text",
-          "text": "Sube el razonamiento solo para ese turno. Luego todo vuelve a tu nivel normal."
+          "text": "Todos los libros empiezan igual: portada, índice e introducción. Y terminan igual: cierre, fuentes y contraportada.\n\nLo que cambia es el medio. Ahí manda el tipo de libro."
         }
       ]
     },
     {
       "type": "page",
+      "align": "top",
       "blocks": [
         {
           "type": "heading",
           "level": 2,
-          "text": "Cada modelo, su punto de partida"
+          "text": "El medio, según el tipo"
         },
         {
-          "type": "list",
-          "items": [
-            "**Fable 5.2:** empieza en `high`. Sube a `xhigh` solo si mides una mejora real.",
-            "**Opus 5.5:** `medium` para el día a día. `high` cuando importa verificar.",
-            "**Sonnet 5.5:** `medium` en tareas claras, `high` en las difíciles.",
-            "**Haiku 5.5:** `medium` para casi todo. Con `low` puede saltarse búsquedas."
+          "type": "levels",
+          "rows": [
+            [
+              "guide",
+              "Principios, piezas, cómo se combinan, práctica"
+            ],
+            [
+              "manual",
+              "Antes de empezar, fases con pasos, si algo falla"
+            ],
+            [
+              "story",
+              "El mundo antes, actos, el giro, lo que dejó"
+            ],
+            [
+              "explainer",
+              "Pregunta, piezas, mecanismo, errores, una frase"
+            ],
+            [
+              "research",
+              "Hallazgo, cómo se sabe, qué significa"
+            ]
           ]
+        },
+        {
+          "type": "space",
+          "height": 12
+        },
+        {
+          "type": "text",
+          "text": "Son puntos de partida, no reglas. El tamaño orientativo es de 30 a 70 páginas."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "palette",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Los capítulos"
+        },
+        {
+          "type": "text",
+          "text": "Cada capítulo empieza con una página `chapter`. Su color rota siempre en el mismo orden: **menta**, **índigo** y **coral**.\n\nFíjate en este libro: *Qué es Bookify* fue menta, *Instalarlo* fue índigo y *Tu carpeta de libros* fue coral. Este capítulo vuelve a menta."
         }
       ]
     },
@@ -575,36 +906,127 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Cómo se cambia"
+          "text": "El índice se arma solo"
+        },
+        {
+          "type": "text",
+          "text": "No escribes el índice. El motor lo construye con los capítulos y con las páginas que llevan `toc`.\n\nCon `toc_main` la página entra como entrada principal. Sin él, como subentrada. Los números de página también los pone el motor."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "La página ==Antes de empezar== de este libro lleva `toc` y por eso aparece en el índice bajo la introducción."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "blocks",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Las páginas son bloques"
+        },
+        {
+          "type": "text",
+          "text": "Una `page` es una pila de bloques. Cada bloque es una pieza con su propio diseño: un título, un párrafo, una lista, una nota.\n\nEliges los bloques que mejor cuentan la idea. El motor se encarga de cómo se ven."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Bloques para contar"
         },
         {
           "type": "table",
           "rows": [
             [
-              "En la app",
-              "[[Cmd]] [[Shift]] [[E]] abre el menú de esfuerzo"
+              "`heading`",
+              "Título de página"
             ],
             [
-              "En la sesión",
-              "`/effort high`, o `/effort` para el deslizador"
+              "`question`",
+              "Título en pregunta, como el de \"¿Qué es Bookify?\""
             ],
             [
-              "Al arrancar",
-              "`claude --effort xhigh`"
+              "`text`",
+              "Párrafos"
             ],
             [
-              "Por defecto",
-              "`effortLevel` en settings (hasta `xhigh`)"
+              "`highlight`",
+              "La frase que resume la página"
             ],
             [
-              "Por agente",
-              "Campo `effort` en skills y subagentes"
+              "`note`",
+              "Ejemplo o aviso, con letra manuscrita"
+            ],
+            [
+              "`list`",
+              "Viñetas o pasos numerados"
+            ],
+            [
+              "`footnote`",
+              "Aclaración pequeña en gris"
             ]
           ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Bloques para mostrar"
         },
         {
-          "type": "footnote",
-          "text": "En Windows, cambia Cmd por Ctrl. Si chocan, gana lo de la sesión, luego tu valor guardado y al final el del modelo."
+          "type": "table",
+          "rows": [
+            [
+              "`illustration`",
+              "Un dibujo en tamaño `s`, `m` o `l`"
+            ],
+            [
+              "`table`",
+              "Dos columnas cortas, como esta"
+            ],
+            [
+              "`levels`",
+              "Una escala de etiqueta y explicación"
+            ],
+            [
+              "`facts`",
+              "Datos clave con etiqueta índigo"
+            ],
+            [
+              "`combine`",
+              "El diagrama A + B → resultado"
+            ],
+            [
+              "`columns`",
+              "Dos ideas lado a lado"
+            ],
+            [
+              "`myths`",
+              "Ideas tachadas con su explicación"
+            ],
+            [
+              "`sources`",
+              "La lista de fuentes"
+            ]
+          ]
         }
       ]
     },
@@ -614,57 +1036,39 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Tres errores comunes"
+          "text": "Una idea por página"
         },
         {
-          "type": "myths",
-          "items": [
-            [
-              "\"Piensa bien\", \"sé exhaustivo\"",
-              "Es texto normal, no sube el esfuerzo. La palabra que sí funciona es `ultrathink`."
-            ],
-            [
-              "Bajar el esfuerzo para respuestas cortas",
-              "El esfuerzo controla cuánto piensa, no cuánto escribe. Si quieres algo breve, pídelo."
-            ],
-            [
-              "Dejar max siempre puesto",
-              "Gastas más y puede sobrepensar."
-            ]
-          ]
-        }
-      ]
-    },
-    {
-      "type": "chapter",
-      "id": "combinar",
-      "title": "Combinar",
-      "color": "mint"
-    },
-    {
-      "type": "page",
-      "blocks": [
+          "type": "text",
+          "text": "Es la regla más importante. Como guía, una página aguanta unas **110 palabras** de texto corrido, o un diagrama y unas 40 palabras.\n\nSi una página necesita dos ideas, son dos páginas."
+        },
         {
           "type": "highlight",
-          "align": "center",
-          "text": "Toda buena sesión es una **combinación**: una tarea, el modelo adecuado y el esfuerzo justo."
+          "text": "Si no cabe, se divide o se recorta. Nunca se baja el tamaño de letra."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "pencil",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El tono"
         },
         {
           "type": "text",
-          "align": "center",
-          "text": "**Por ejemplo:**"
+          "text": "Lo define `style.md`. Segunda persona, frases de 6 a 20 palabras, párrafos de una a tres frases.\n\nNada de jerga sin explicar, exclamaciones ni emojis. Como mucho, tres negritas por página."
         },
         {
-          "type": "space",
-          "height": 10
-        },
-        {
-          "type": "combine",
-          "icon": "bug",
-          "a": "Bug en código ajeno",
-          "b": "Opus",
-          "b_label": "Modelo",
-          "result": "high"
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "En un manual como este, los pasos van en imperativo: ==Abre==, ==Ejecuta==, ==Reinicia==."
         }
       ]
     },
@@ -672,65 +1076,30 @@
       "type": "page",
       "blocks": [
         {
-          "type": "combine",
-          "icon": "house",
-          "a": "Arquitectura o causa raíz",
-          "b": "Fable",
-          "b_label": "Modelo",
-          "result": "high → xhigh"
+          "type": "illustration",
+          "src": "star",
+          "size": "s"
         },
         {
-          "type": "combine",
-          "icon": "pencil",
-          "a": "Renombrar, bocetos",
-          "b": "Sonnet",
-          "b_label": "Modelo",
-          "result": "low"
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "combine",
-          "icon": "document",
-          "a": "Función con alcance claro",
-          "b": "Opus",
-          "b_label": "Modelo",
-          "result": "medium"
-        },
-        {
-          "type": "combine",
-          "icon": "magnifier",
-          "a": "Subagente que junta archivos",
-          "b": "Haiku",
-          "b_label": "Modelo",
-          "result": "low / medium"
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "combine",
-          "icon": "shield",
-          "a": "Auditoría de seguridad",
-          "b": "Fable",
-          "b_label": "u Opus",
-          "result": "max"
+          "type": "heading",
+          "level": 2,
+          "text": "Los dibujos"
         },
         {
           "type": "text",
-          "text": "Estas combinaciones son **puntos de partida** razonados a partir de la documentación oficial, no reglas fijas.\n\nPruébalas en tu código. Si una tarea sale igual de bien con menos, quédate con menos."
+          "text": "Cada libro guarda sus SVG en `images/` y los cita por nombre, sin extensión.\n\nTrazo de tinta, formas planas y solo los colores de la paleta, con las clases `indigo`, `coral`, `mint`, `paper` e `ink`. Sin `id` dentro del dibujo."
+        },
+        {
+          "type": "footnote",
+          "text": "Este libro usa los mismos dibujos que su edición en inglés, como permite la skill."
         }
       ]
     },
     {
       "type": "chapter",
-      "id": "desktop",
-      "title": "Claude Code Desktop",
+      "id": "salida",
+      "title": "La salida final",
+      "subtitle": "Construir, comprobar, compartir",
       "color": "indigo"
     },
     {
@@ -738,101 +1107,135 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "tabs",
+          "src": "bolt",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Construir"
+        },
+        {
+          "type": "text",
+          "text": "El motor recibe el nombre del libro y lee su contenido. Después escribe el libro terminado en la carpeta `output/`, con el título como nombre del archivo.\n\nCon `--all` construye todos los libros de la carpeta. Con `--dir` trabaja en otra carpeta: así se construyen los ejemplos de este repositorio."
+        },
+        {
+          "type": "note",
+          "label": "Señal:",
+          "text": "Al terminar, el motor escribe ==Done:==, la ruta del libro y cuántas páginas tiene."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Comprobar el espacio"
+        },
+        {
+          "type": "text",
+          "text": "Mientras construye, el motor **estima** cuánto ocupa cada página, sin navegador. Es una estimación prudente: suele quedarse algo por encima."
+        },
+        {
+          "type": "levels",
+          "rows": [
+            [
+              "check",
+              "Desde el 97 % del alto útil: puede que quepa justo"
+            ],
+            [
+              "overflows",
+              "Desde el 115 %: casi seguro que se sale"
+            ]
+          ]
+        },
+        {
+          "type": "space",
+          "height": 12
+        },
+        {
+          "type": "text",
+          "text": "Con `overflows`, la página se divide o se recorta."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "magnifier",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "La medida exacta"
+        },
+        {
+          "type": "text",
+          "text": "Para salir de dudas, abre el libro en el navegador con `?check` al final de la dirección.\n\nEn ese modo el libro mide cada página de verdad y te dice cuáles se salen. Si todo está bien, lo indica en una línea."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "json",
+          "a": "content.json y dibujos",
+          "b": "Plantilla",
+          "b_label": "HTML, CSS, JS e iconos",
+          "result": "Un solo archivo"
+        },
+        {
+          "type": "text",
+          "text": "El motor mete todo dentro del mismo `.html`: el diseño, la animación, los iconos y las páginas.\n\nPor eso el libro no depende de nada más. Lo mandas y se abre."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Detalles que pone el motor"
+        },
+        {
+          "type": "list",
+          "items": [
+            "El **índice**, con tantas páginas como necesite.",
+            "Los **números de página**.",
+            "Una **página en blanco** si hace falta, para que la contraportada cierre el libro.",
+            "Los textos del lector en el idioma del libro."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Tú no escribes nada de eso."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "screens",
           "size": "l"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Tres pestañas"
+          "text": "En cualquier pantalla"
         },
         {
           "type": "text",
-          "text": "La app de escritorio tiene tres pestañas. **Chat** es para conversar. **Cowork**, para Dispatch y trabajos largos. **Code**, para desarrollar software.\n\nClaude Code Desktop es la pestaña **Code**. Necesita un plan de pago, y en Windows la primera vez te pide tener Git."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Antes del primer mensaje"
-        },
-        {
-          "type": "text",
-          "text": "Cada sesión arranca con **cuatro decisiones**:"
-        },
-        {
-          "type": "list",
-          "ordered": true,
-          "items": [
-            "**Entorno:** dónde corre Claude.",
-            "**Carpeta:** el proyecto en el que trabaja.",
-            "**Permisos:** cuánta libertad le das.",
-            "**Modelo:** qué cerebro usas. Lo cambias a mitad de sesión con [[Cmd]] [[Shift]] [[I]]."
-          ]
-        },
-        {
-          "type": "text",
-          "text": "Pulsa Enter y empieza. Cada sesión guarda su propia historia, y puedes tener varias a la vez."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "id": "permisos",
-      "toc": "Permisos y entornos",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Cuánta libertad le das"
-        },
-        {
-          "type": "table",
-          "rows": [
-            [
-              "**Manual**",
-              "Pregunta antes de cada edición y comando."
-            ],
-            [
-              "**Accept edits**",
-              "Acepta ediciones y comandos básicos."
-            ],
-            [
-              "**Plan**",
-              "Explora y propone, sin editar nada."
-            ],
-            [
-              "**Auto**",
-              "Sin interrupciones. Un clasificador revisa cada acción."
-            ],
-            [
-              "**Bypass**",
-              "Sin preguntas. Solo en entornos desechables."
-            ]
-          ]
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "note",
-          "label": "Truco oficial:",
-          "text": "Empieza las tareas complejas en ==Plan==. Cuando el plan te convenza, cambia a ==Accept edits== o ==Manual==."
-        },
-        {
-          "type": "space",
-          "height": 24
-        },
-        {
-          "type": "text",
-          "align": "center",
-          "text": "Cambias de modo con [[Cmd]] [[Shift]] [[M]].\n\nEl modo elegido se recuerda por carpeta. Plan, en cambio, dura solo esa sesión."
+          "text": "La página tiene un tamaño fijo y se escala entera. En el celular ves una página. En la computadora, dos abiertas, como un libro.\n\nLa vista doble aparece si la pantalla es horizontal y mide al menos 900 por 500 píxeles."
         }
       ]
     },
@@ -847,272 +1250,55 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Lo que Auto frena"
+          "text": "La revisión"
         },
         {
           "type": "text",
-          "text": "Auto te deja trabajar sin interrupciones, pero bloquea cosas como ejecutar `curl | bash`, desplegar a producción, sobrescribir trabajo ajeno o mandar datos sensibles fuera.\n\nTambién frena lo que parece venir de algo que Claude **leyó** y no de algo que **tú pediste**.\n\nTras tres bloqueos seguidos, o veinte en total, vuelve a preguntarte."
+          "text": "Antes de entregar, el asistente revisa el libro con `review.md`. Si su herramienta puede lanzar un subagente, se la encarga a él, para que lo lea con ojos nuevos.\n\nComprueba página por página: una sola idea, el tono, el idioma, la estructura del tipo, los dibujos y las fuentes."
         }
       ]
     },
     {
       "type": "page",
+      "align": "top",
       "blocks": [
         {
           "type": "heading",
           "level": 2,
-          "text": "Dónde corre Claude"
+          "text": "El flujo completo"
         },
         {
           "type": "list",
+          "ordered": true,
           "items": [
-            "**Local:** en tu máquina, con acceso directo a tus archivos.",
-            "**Cloud:** en servidores de Anthropic. Sigue trabajando aunque cierres la app.",
-            "**SSH:** en una máquina remota. La app instala Claude Code allí.",
-            "**WSL:** en Windows, dentro de Linux."
+            "Reúne el material. Lo investigado en la conversación es la fuente principal.",
+            "Decide el tipo y el idioma.",
+            "Escaleta: capítulos y una idea por página.",
+            "Crea la carpeta con `--new`.",
+            "Escribe `content.json`."
           ]
-        },
-        {
-          "type": "text",
-          "text": "Puedes guardar entornos con sus carpetas y variables para no configurarlos cada vez."
         }
       ]
     },
     {
       "type": "page",
+      "align": "top",
       "blocks": [
-        {
-          "type": "illustration",
-          "src": "panels",
-          "size": "l"
-        },
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Tu mesa de trabajo"
-        },
-        {
-          "type": "text",
-          "text": "La pantalla se arma con **paneles**: chat, cambios, navegador, terminal, archivos, plan y tareas. Los arrastras y los cambias de tamaño.\n\nCon [[Ctrl]] [[O]] cambias la vista. La vista **Thinking** muestra cómo razona Claude: ideal para aprender."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Revisa como un editor"
-        },
-        {
-          "type": "text",
-          "text": "Abre los cambios tocando los contadores tipo `+12 -1`. Pasa el cursor por una línea, pulsa **+** y deja un comentario.\n\nEnvía todos juntos con [[Cmd]] [[Enter]]. Claude los aplica y te muestra el diff nuevo.\n\n¿Otra mirada? `/code-review` revisa el trabajo y te deja recorrer cada hallazgo o aplicar los arreglos."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Mira tu app funcionando"
-        },
-        {
-          "type": "text",
-          "text": "En el panel de navegador, Claude arranca tu servidor y ve la app como tú: toma capturas, hace clic y lee los logs. Con **Auto-verify** comprueba cada cambio.\n\nCon un **pull request** abierto ves el estado de CI en la sesión. **Auto-fix** corrige lo que falla y **Merge when ready** lo fusiona al pasar. Necesitas `gh` instalado."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "branches",
-          "size": "l"
-        },
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Varias cosas a la vez"
-        },
         {
           "type": "list",
+          "ordered": true,
+          "start": 6,
           "items": [
-            "**Worktree:** una copia aislada del repo, para que dos sesiones no se pisen.",
-            "**Side chat:** [[Cmd]] [[;]] para preguntar sin ensuciar la conversación.",
-            "**Remote Control:** sigues una sesión local desde el móvil.",
-            "**Dispatch:** mandas tareas desde el teléfono (Pro y Max)."
-          ]
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "id": "atajos",
-      "toc": "Atajos",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Atajos para memorizar"
-        },
-        {
-          "type": "table",
-          "rows": [
-            [
-              "[[Cmd]] [[/]]",
-              "Ver todos los atajos"
-            ],
-            [
-              "[[Cmd]] [[Shift]] [[I]]",
-              "Modelo"
-            ],
-            [
-              "[[Cmd]] [[Shift]] [[E]]",
-              "Esfuerzo"
-            ],
-            [
-              "[[Cmd]] [[Shift]] [[M]]",
-              "Permisos"
-            ],
-            [
-              "[[Esc]]",
-              "Detener a Claude"
-            ],
-            [
-              "[[Ctrl]] [[`]]",
-              "Terminal"
-            ],
-            [
-              "[[Cmd]] [[;]]",
-              "Side chat"
-            ],
-            [
-              "[[Cmd]] [[N]]",
-              "Nueva sesión"
-            ]
-          ]
-        },
-        {
-          "type": "footnote",
-          "text": "En Windows, cambia Cmd por Ctrl."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Dale más alcance"
-        },
-        {
-          "type": "text",
-          "text": "Desde **Customize**, en la barra lateral, manejas tres cosas:"
-        },
-        {
-          "type": "list",
-          "items": [
-            "**Conectores:** enlazan a Claude con tus otras apps.",
-            "**Skills:** procedimientos guardados. Escribe `/` para verlas.",
-            "**Plugins:** paquetes que suman skills, agentes y más."
-          ]
-        },
-        {
-          "type": "text",
-          "text": "Con Pro o Max, **computer use** deja que Claude use apps de tu escritorio cuando ninguna otra herramienta sirve."
-        }
-      ]
-    },
-    {
-      "type": "chapter",
-      "id": "proyecto",
-      "title": "Tu proyecto",
-      "color": "coral"
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "highlight",
-          "align": "center",
-          "text": "Toda instrucción que le das a Claude cae en uno de dos grupos."
-        },
-        {
-          "type": "columns",
-          "columns": [
-            {
-              "icon": "brain",
-              "title": "Claude decide",
-              "text": "Tu mensaje, `CLAUDE.md` y las skills. Casi siempre los sigue, sin garantía. Para **guías con excepciones**."
-            },
-            {
-              "icon": "lock",
-              "title": "Claude Code obliga",
-              "text": "Hooks, reglas *deny* y ajustes gestionados. Se cumplen siempre. Para lo que **nunca o siempre** debe pasar."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "claude-md",
-          "size": "s"
-        },
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Un CLAUDE.md corto"
-        },
-        {
-          "type": "text",
-          "text": "Claude lo lee en cada sesión. Escribe solo lo que **no puede descubrir leyendo el código**:"
-        },
-        {
-          "type": "list",
-          "items": [
-            "Los comandos de tests, tipos y lint.",
-            "Patrones viejos que no hay que copiar.",
-            "Decisiones que no están en el repo.",
-            "Lo que ya corregiste dos veces."
-          ]
-        },
-        {
-          "type": "footnote",
-          "text": "`/init` te da un borrador. Luego recorta: menos de 200 líneas."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Cada cosa en su sitio"
-        },
-        {
-          "type": "list",
-          "items": [
-            "`CLAUDE.local.md`: tus preferencias, fuera del repo.",
-            "`.claude/rules/`: reglas de una sola carpeta.",
-            "**Skills:** procesos del equipo, como un release.",
-            "**Hooks:** pasos obligatorios, como formatear.",
-            "**Reglas deny:** lo prohibido, como leer `.env`."
+            "Dibuja los SVG que falten.",
+            "Construye y arregla lo que no quepa.",
+            "Revisa con `review.md` y vuelve a construir.",
+            "Entrega la ruta de `output/<Título>.html`."
           ]
         },
         {
           "type": "note",
           "label": "Señal:",
-          "text": "Si añades ==IMPORTANTE== a una línea y Claude la sigue ignorando, esa línea quiere ser un hook."
+          "text": "Sabrás que terminó cuando tengas un `.html` que se abre con doble clic y no marca ==overflows==."
         }
       ]
     },
@@ -1121,291 +1307,105 @@
       "blocks": [
         {
           "type": "illustration",
-          "src": "check",
-          "size": "s"
+          "src": "spread",
+          "size": "m"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Dale algo que comprobar"
+          "text": "Ajustar después"
         },
         {
           "type": "text",
-          "text": "Claude se detiene cuando el trabajo **parece** terminado. Si no puede comprobarlo, tú te conviertes en su único test.\n\nDale algo que diga \"pasa\" o \"falla\": una prueba, un build, un linter, una captura junto al diseño.\n\nY pide siempre **evidencia**: el comando que corrió y lo que salió."
+          "text": "Un libro no se queda fijo. Pide cambios como se los pedirías a una persona: \"haz más corto el capítulo 2\" o \"añade una página sobre los costos\".\n\nEl asistente cambia `content.json` y lo reconstruye con `/bookify build`."
         }
       ]
     },
     {
-      "type": "chapter",
-      "id": "sesion",
-      "title": "Dirigir la sesión",
-      "color": "mint"
-    },
-    {
       "type": "page",
+      "id": "siguientes",
+      "toc": "Siguientes pasos",
+      "toc_main": true,
       "blocks": [
         {
           "type": "illustration",
-          "src": "esc-key",
+          "src": "target",
           "size": "s"
         },
         {
           "type": "heading",
           "level": 2,
-          "text": "Mira el primer minuto"
-        },
-        {
-          "type": "text",
-          "text": "Observa cómo arranca Claude y pulsa [[Esc]] en cuanto se desvíe. Se detiene y conserva lo hecho."
-        },
-        {
-          "type": "highlight",
-          "text": "Si ya lo corregiste dos veces y sigue mal, no lo corrijas una tercera."
-        },
-        {
-          "type": "text",
-          "text": "Usa `/clear` y escribe un mensaje nuevo con lo que aprendiste."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Tus comandos de cabecera"
-        },
-        {
-          "type": "table",
-          "rows": [
-            [
-              "`/rewind`",
-              "Vuelve atrás código, conversación o ambos."
-            ],
-            [
-              "`/clear`",
-              "Empieza de cero entre tareas distintas."
-            ],
-            [
-              "`/compact`",
-              "Resume la conversación. Dile qué conservar."
-            ],
-            [
-              "`/usage`",
-              "Muestra en qué se fue tu consumo."
-            ],
-            [
-              "`/context`",
-              "Cuánto contexto llevas y qué se cargó."
-            ]
-          ]
-        },
-        {
-          "type": "footnote",
-          "text": "Ojo: `/rewind` no deshace lo que cambió un comando de terminal."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Pide con precisión"
-        },
-        {
-          "type": "text",
-          "text": "Un buen mensaje le da a Claude lo que no puede ver: el archivo, el síntoma y qué significa \"arreglado\"."
-        },
-        {
-          "type": "note",
-          "label": "Por ejemplo:",
-          "text": "En vez de ==\"arregla el login\"==: \"falla al expirar la sesión. Revisa el token en src/auth/, escribe una prueba que lo reproduzca y arréglalo.\""
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Dos frases que sí ayudan"
-        },
-        {
-          "type": "text",
-          "text": "**\"Sé ambicioso.\"** Claude tiende a construir lo mínimo que cumple. Si quieres la versión completa, con errores y casos límite, díselo.\n\n**\"Entrevístame hasta que puedas escribir la especificación.\"** Para cuando aún no sabes bien qué quieres. Luego abre una sesión limpia y construye desde ese `SPEC.md`."
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "heading",
-          "level": 2,
-          "text": "Sobre los subagentes"
-        },
-        {
-          "type": "text",
-          "text": "Sirven para trabajar en paralelo, sacar resultados largos de la conversación o tener un revisor con ojos frescos."
-        },
-        {
-          "type": "highlight",
-          "text": "Lo que no hacen es darte una respuesta más inteligente."
-        },
-        {
-          "type": "text",
-          "text": "Usan el mismo modelo o uno menor. Para ahorrar, pon `model: haiku` en los que hacen trabajo simple."
-        }
-      ]
-    },
-    {
-      "type": "chapter",
-      "id": "mitos",
-      "title": "Mitos",
-      "subtitle": "Consejos que ya puedes olvidar",
-      "color": "indigo"
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "text",
-          "text": "Tuvieron sentido con modelos anteriores. Hoy, según la documentación oficial, ya no hacen falta."
-        },
-        {
-          "type": "myths",
-          "items": [
-            [
-              "Cuidar el contexto como oro",
-              "Hay 1 millón de tokens y se resume solo."
-            ],
-            [
-              "Escribir en MAYÚSCULAS",
-              "Hace que aplique la regla de más. Si no puede fallar, usa un hook."
-            ],
-            [
-              "\"Sigue hasta terminar\"",
-              "Provoca trabajo de más. Mejor dale una prueba que pasar."
-            ],
-            [
-              "Describir la arquitectura",
-              "Claude lee el repo solo, y rápido."
-            ],
-            [
-              "Delegar para pensar mejor",
-              "Es el mismo cerebro. Ayuda un revisor fresco."
-            ]
-          ]
-        }
-      ]
-    },
-    {
-      "type": "chapter",
-      "id": "practica",
-      "title": "Práctica",
-      "subtitle": "Cinco sesiones en tu propio proyecto",
-      "color": "coral"
-    },
-    {
-      "type": "page",
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "weight",
-          "size": "s"
+          "text": "Siguientes pasos"
         },
         {
           "type": "list",
           "ordered": true,
           "items": [
-            "**Conoce tu proyecto.** Modo Plan, Opus en `medium`. Pide que te explique la arquitectura. Activa la vista Thinking y corre `/init`.",
-            "**Compara esfuerzos.** Un bug real, una vez con `low` y otra con `high` en un worktree. Mira diff, tiempo y `/usage`."
+            "Instala Bookify en tu herramienta.",
+            "Investiga algo que te interese de verdad.",
+            "Pide el libro con `/bookify`, o `@bookify` en OpenCode.",
+            "Ábrelo con `?check` y compáralo con su `content.json`."
           ]
-        }
-      ]
-    },
-    {
-      "type": "page",
-      "blocks": [
+        },
         {
-          "type": "list",
-          "ordered": true,
-          "start": 3,
-          "items": [
-            "**Compara modelos.** La misma tarea con Sonnet, Opus y Fable. Anota calidad, tiempo y consumo.",
-            "**Pon reglas.** Tus comandos en el CLAUDE.md, un Stop hook de tipos y una regla deny para `.env`.",
-            "**El flujo completo.** Worktree, comentarios en el diff, `/code-review` y un PR con Auto-fix."
-          ]
+          "type": "text",
+          "text": "El primer libro enseña más que cualquier manual."
         }
       ]
     },
     {
       "type": "page",
       "id": "fuentes",
-      "toc": "Epílogo y fuentes",
+      "toc": "Fuentes",
       "toc_main": true,
-      "blocks": [
-        {
-          "type": "illustration",
-          "src": "notebook",
-          "size": "s"
-        },
-        {
-          "type": "heading",
-          "text": "Epílogo"
-        },
-        {
-          "type": "text",
-          "text": "Ninguna guía te enseña a dominar una herramienta. Te enseña dónde mirar.\n\nLo demás sale de usarla. Probar un modelo, ajustar el esfuerzo, ver qué cambia. Y volver a probar."
-        }
-      ]
-    },
-    {
-      "type": "page",
       "blocks": [
         {
           "type": "heading",
           "level": 2,
-          "text": "Fuentes oficiales"
+          "text": "Fuentes"
         },
         {
           "type": "footnote",
-          "text": "Todas de Anthropic, consultadas el 23 de noviembre de 2026."
+          "text": "Archivos del repositorio de Bookify, versión 1.0.0."
         },
         {
           "type": "sources",
           "items": [
             [
-              "Models overview",
-              "https://platform.claude.com/docs/en/models/overview"
+              "README del proyecto",
+              "https://github.com/devjoi2018/bookify#readme"
             ],
             [
-              "Choosing a model",
-              "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+              "SKILL.md: el flujo de la skill",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/SKILL.md"
             ],
             [
-              "Effort",
-              "https://platform.claude.com/docs/en/build-with-claude/effort"
+              "style.md: el tono",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/style.md"
             ],
             [
-              "Claude models explained",
-              "https://claude.com/blog/claude-models-explained"
+              "structures.md: la estructura por tipo",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/structures.md"
             ],
             [
-              "Model configuration",
-              "https://code.claude.com/docs/en/model-config"
+              "format.md: el formato de content.json",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/format.md"
             ],
             [
-              "Claude Code Desktop",
-              "https://code.claude.com/docs/en/desktop"
+              "review.md: la revisión",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/review.md"
             ],
             [
-              "Best practices for Claude Code",
-              "https://code.claude.com/docs/en/best-practices"
+              "build.py: el motor",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/engine/build.py"
+            ],
+            [
+              "install.py: el instalador",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/install.py"
+            ],
+            [
+              "El estándar Agent Skills",
+              "https://agentskills.io"
             ]
           ]
         },
@@ -1417,8 +1417,8 @@
     },
     {
       "type": "back-cover",
-      "illustration": "terminal",
-      "text": "Una idea por página. Fuentes oficiales. Para leer en cualquier pantalla."
+      "illustration": "cover",
+      "text": "Lo que investigas, convertido en un libro claro. Hecho con Bookify, sobre Bookify."
     }
   ]
 }

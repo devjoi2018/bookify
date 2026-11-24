@@ -1,0 +1,460 @@
+{
+  "title": "Bookify step by step",
+  "type": "manual",
+  "language": "en",
+  "description": "What Bookify is, how to install it, how to set up a books folder, how a book is put together and how the final HTML is built. Made with Bookify itself.",
+  "pages": [
+    {"type": "cover", "label": "Manual",
+     "title": ["Bookify", "step by step"], "illustration": "cover",
+     "subtitle": "From a conversation with your AI to an illustrated book. Explained with this very book.",
+     "footer": ["November 2026", "Version 1.0.0"]},
+
+    {"type": "contents", "title": "Contents", "illustration": "open-book"},
+
+    {"type": "page", "id": "intro", "toc": "Introduction", "toc_main": true, "blocks": [
+      {"type": "illustration", "src": "chat-to-book", "size": "l"},
+      {"type": "heading", "text": "Introduction"},
+      {"type": "text", "text": "Researching with an AI is fast. Reading what it writes takes longer: long answers, buried ideas and a tone that sounds like filler.\n\nBookify takes that conversation and turns it into a short, illustrated book with one idea per page.\n\nThat's what this manual is about."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "magnifier", "size": "s"},
+      {"type": "highlight", "text": "This book was made **with Bookify**, from its own files and its own code."},
+      {"type": "text", "text": "Everything you're about to read comes from the repository: the skill's instructions, the installer and the engine that builds the books."},
+      {"type": "note", "label": "Tip:", "text": "Its source is in the ==examples/books== folder of the repository. Open it and compare each page with the JSON that produces it."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "map", "size": "m"},
+      {"type": "heading", "level": 2, "text": "The journey"},
+      {"type": "list", "ordered": true, "items": [
+        "What Bookify is and what problem it solves.",
+        "Installing it in your tool.",
+        "Setting up your books folder.",
+        "How a book is put together: chapters, pages and blocks.",
+        "The final output: build, check and share."
+      ]},
+      {"type": "text", "text": "Each chapter builds on the one before. Read them in order."}
+    ]},
+
+    {"type": "page", "id": "before", "toc": "Before you start", "blocks": [
+      {"type": "illustration", "src": "check", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Before you start"},
+      {"type": "text", "text": "You need two things:"},
+      {"type": "list", "items": [
+        "**Python 3.9 or newer.** Bookify installs no packages: everything uses the standard library.",
+        "**One of these tools:** Claude Code, Command Code, OpenCode or GitHub Copilot in VS Code."
+      ]},
+      {"type": "text", "text": "You need internet to install and update. To read the books, you don't."}
+    ]},
+
+    {"type": "chapter", "id": "what-is", "title": "What Bookify is", "subtitle": "The idea and the pieces", "color": "mint"},
+
+    {"type": "page", "blocks": [
+      {"type": "question", "light": "What is", "bold": "Bookify?"},
+      {"type": "highlight", "align": "center", "text": "Put as simply as possible, __Bookify is a skill that turns research into an illustrated digital book__."},
+      {"type": "text", "align": "center", "text": "A single **HTML** file, with page turns, that opens in any browser."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "skill", "size": "s"},
+      {"type": "heading", "level": 2, "text": "What a skill is"},
+      {"type": "text", "text": "A __skill__ is a folder of instructions your assistant reads when it needs them. Its main file is called `SKILL.md`.\n\nBookify follows the **Agent Skills** standard. That's why the same folder works in four different tools."},
+      {"type": "note", "label": "For example:", "text": "When you write ==turn this into a book==, the assistant recognizes the request from the description in `SKILL.md` and loads the skill."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "combine", "icon": "chat", "a": "What you researched", "b": "Bookify", "b_label": "Writing and design rules", "result": "A clear book"},
+      {"type": "text", "text": "You bring the content. Bookify brings the method: how to write, how to order it and how the result looks.\n\nSo you don't have to ask five times for a simpler explanation."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "What's inside"},
+      {"type": "text", "text": "The `bookify/` folder is the whole skill. It's what gets installed."},
+      {"type": "table", "rows": [
+        ["`SKILL.md`", "What to do for each request, and the workflow"],
+        ["`style.md`", "The writing tone and rhythm"],
+        ["`structures.md`", "The structure of each type of book"],
+        ["`format.md`", "The `content.json` format and its blocks"],
+        ["`review.md`", "The review before delivery"],
+        ["`engine/`", "The engine that builds the HTML, and the template"],
+        ["`install.py`", "The installer and updater"]
+      ]}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "columns", "columns": [
+        {"icon": "pencil", "title": "The assistant writes", "text": "It writes the content in `content.json` and draws the SVGs."},
+        {"icon": "document", "title": "The engine builds", "text": "It adds the design, the animation, the page numbers and the contents."}
+      ]},
+      {"type": "text", "text": "This split is the key. The assistant **never writes HTML, CSS or JS** for a book.\n\nThat's why every book shares the same signature look."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "What it doesn't do"},
+      {"type": "myths", "items": [
+        ["Makes up information to fill space", "It tells what was researched. If a fact is missing, it leaves it out."],
+        ["Changes the design for each book", "The palette, the fonts and the cover are always the same."],
+        ["Needs packages installed", "It only uses Python's standard library."]
+      ]},
+      {"type": "text", "text": "Watch what goes in: if the conversation has doubtful facts, so will the book."}
+    ]},
+
+    {"type": "chapter", "id": "install", "title": "Installing it", "subtitle": "One command and done", "color": "indigo"},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "terminal", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Step 1 · Open a terminal"},
+      {"type": "text", "text": "On Windows, open **PowerShell**. On macOS or Linux, open **Terminal**.\n\nYou don't need to download the repository. The command in the next step does it for you."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "download", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Step 2 · Run the installer"},
+      {"type": "text", "text": "Copy the command for your system. This one installs Bookify for Claude Code:"},
+      {"type": "table", "rows": [
+        ["Windows (PowerShell)", "`irm …/install.py`\n`| python - --tool claude`"],
+        ["macOS or Linux", "`curl -fsSL …/install.py`\n`| python3 - --tool claude`"]
+      ]},
+      {"type": "note", "label": "Tip:", "text": "The full address of `install.py` is in the repository's ==README==. Copy it from there."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "Step 3 · Choose your tool"},
+      {"type": "text", "text": "Change `claude` to the value of the tool you use:"},
+      {"type": "table", "rows": [
+        ["Claude Code", "`claude`"],
+        ["Command Code", "`commandcode`"],
+        ["OpenCode", "`opencode`"],
+        ["GitHub Copilot", "`copilot`"],
+        ["Several at once", "`claude,copilot`"],
+        ["All of them", "`all`"]
+      ]},
+      {"type": "footnote", "text": "If you run `install.py` in a terminal without `--tool`, it asks which one you want with a numbered menu."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "skill", "size": "s"},
+      {"type": "heading", "level": 2, "text": "What the installer does"},
+      {"type": "list", "ordered": true, "items": [
+        "Downloads the **latest release** of the repository from GitHub.",
+        "Copies the `bookify/` folder into your tool's skills folder.",
+        "Replaces `{{SKILL_DIR}}` with the real path where it was installed.",
+        "Records the install in `~/.bookify/installs.json`."
+      ]},
+      {"type": "text", "text": "That record is what updating uses later."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "Where it goes"},
+      {"type": "text", "text": "By default it's installed for your user and works in all your projects:"},
+      {"type": "table", "rows": [
+        ["Claude Code", "`~/.claude/skills/`"],
+        ["Command Code", "`~/.commandcode/skills/`"],
+        ["OpenCode", "`~/.config/opencode/skills/`"],
+        ["GitHub Copilot", "`~/.copilot/skills/`"]
+      ]},
+      {"type": "text", "text": "Inside each one you'll find a `bookify` folder. Later you'll see how to install it for one project only."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "window", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Step 4 · Restart the tool"},
+      {"type": "text", "text": "Close and reopen your tool, or start a new session. That's how it loads the skill."},
+      {"type": "note", "label": "Check:", "text": "You'll know it worked when the installer shows a line with ✓, the path and the version, and `/bookify version` answers ==1.0.0==."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "update", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Keeping it up to date"},
+      {"type": "text", "text": "Write `/bookify update` in your assistant. First it checks GitHub for a new version.\n\nIf there is one, it sums up what's new and installs it in **every** registered tool. Your books are left alone."},
+      {"type": "footnote", "text": "It compares the latest release with your oldest install, so none of them falls behind."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "If something goes wrong"},
+      {"type": "table", "rows": [
+        ["`python` doesn't respond", "Try `python3`, or `py` on Windows"],
+        ["It asks you to name the tool", "Add `--tool` with its value"],
+        ["No published versions", "There's no release on GitHub yet"],
+        ["The skill doesn't show up", "Restart the tool"],
+        ["You want to remove it", "Use `--uninstall` with `--tool`"]
+      ]},
+      {"type": "text", "text": "Uninstalling deletes the skill, but leaves your `books/` and `output/` folders as they were."}
+    ]},
+
+    {"type": "chapter", "id": "folder", "title": "Your books folder", "subtitle": "Where each book lives", "color": "coral"},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "folder", "size": "m"},
+      {"type": "heading", "level": 2, "text": "Work where you are"},
+      {"type": "text", "text": "The engine works in the **folder open** in your tool. It creates two folders there:"},
+      {"type": "list", "items": [
+        "`books/`: the source of each book, the part you edit.",
+        "`output/`: the finished books, ready to share."
+      ]},
+      {"type": "text", "text": "One folder can hold as many books as you want."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "For a single project"},
+      {"type": "text", "text": "If you want Bookify to exist in one folder only, add `--project` to the install command.\n\nThen it's installed inside that folder, for example in `.claude/skills/`, or in `.github/skills/` for Copilot."},
+      {"type": "note", "label": "For example:", "text": "A folder called ==My research== with Bookify installed inside. Every topic you research ends up as one more book on its shelf."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "pencil", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Creating a book"},
+      {"type": "text", "text": "Usually the assistant does it. Behind the scenes, it asks the engine for a new book with three details: the name, the type and the language.\n\nThis book was created that way, as a manual in English. The engine answered:"},
+      {"type": "note", "label": "Fact:", "text": "Created: books/Bookify step by step (manual, en). Write content.json, then build."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "What gets created"},
+      {"type": "facts", "rows": [
+        ["Folder", "`books/<Name>/`"],
+        ["Content", "`content.json`, with a sample cover, contents, one chapter, sources and back cover"],
+        ["Drawings", "`images/`, empty at first"]
+      ]},
+      {"type": "text", "text": "The starter JSON is just a skeleton. The real work is filling it in."},
+      {"type": "footnote", "text": "If a `content.json` with that name already exists, the engine won't overwrite it: it stops with an error."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "Choose the type"},
+      {"type": "text", "text": "The type is decided by **the content**, not the topic:"},
+      {"type": "levels", "rows": [
+        ["guide", "Understand a topic and decide well"],
+        ["manual", "Do something without getting lost, like this book"],
+        ["story", "Follow a thread of events or a tale"],
+        ["explainer", "Make a hard idea click"],
+        ["research", "Report a finding or a study"],
+        ["other", "Whatever doesn't fit the others"]
+      ]},
+      {"type": "space", "height": 12},
+      {"type": "text", "text": "The type sets the cover label and guides the structure."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "languages", "size": "l"},
+      {"type": "heading", "level": 2, "text": "Choose the language"},
+      {"type": "text", "text": "The book is written in the language you use with your assistant. Its code goes in `language`.\n\nThe engine ships the reader's texts in Spanish, English and Portuguese: buttons, \"Cover\", \"End\". For another language, the JSON adds `ui` with the translations."}
+    ]},
+
+    {"type": "chapter", "id": "build-a-book", "title": "How a book is put together", "subtitle": "Chapters, pages and blocks", "color": "mint"},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "json", "size": "m"},
+      {"type": "question", "light": "What's in", "bold": "content.json?"},
+      {"type": "text", "text": "Only **content**. A title, a type, a language, a description and a list of pages.\n\nThe keys are in English. The texts, in the book's language."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "Five page types"},
+      {"type": "table", "rows": [
+        ["`cover`", "The cover: label, title, subtitle, drawing and footer"],
+        ["`contents`", "The contents, which the engine builds by itself"],
+        ["`chapter`", "A chapter opening, in full color"],
+        ["`page`", "Everything else: a list of blocks"],
+        ["`back-cover`", "The back cover, with one or two sentences"]
+      ]},
+      {"type": "note", "label": "For example:", "text": "This book's cover is a `cover` with the label ==Manual== and the title on two lines: the second one is coral."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "arc", "size": "m"},
+      {"type": "heading", "level": 2, "text": "The same skeleton"},
+      {"type": "text", "text": "Every book starts the same way: cover, contents and introduction. And ends the same way: closing, sources and back cover.\n\nWhat changes is the middle. That's where the book type rules."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "The middle, by type"},
+      {"type": "levels", "rows": [
+        ["guide", "Principles, pieces, how they combine, practice"],
+        ["manual", "Before you start, phases with steps, troubleshooting"],
+        ["story", "The world before, acts, the turn, what it left"],
+        ["explainer", "Question, pieces, mechanism, mistakes, one sentence"],
+        ["research", "Finding, how we know, what it means"]
+      ]},
+      {"type": "space", "height": 12},
+      {"type": "text", "text": "They're starting points, not rules. The suggested size is 30 to 70 pages."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "palette", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Chapters"},
+      {"type": "text", "text": "Each chapter starts with a `chapter` page. Its color always rotates in the same order: **mint**, **indigo** and **coral**.\n\nLook at this book: *What Bookify is* was mint, *Installing it* was indigo and *Your books folder* was coral. This chapter is back to mint."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "The contents build themselves"},
+      {"type": "text", "text": "You don't write the contents. The engine builds them from the chapters and from the pages that have `toc`.\n\nWith `toc_main` the page becomes a main entry. Without it, a sub-entry. The engine adds the page numbers too."},
+      {"type": "note", "label": "For example:", "text": "This book's ==Before you start== page has `toc`, so it shows up in the contents under the introduction."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "blocks", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Pages are blocks"},
+      {"type": "text", "text": "A `page` is a stack of blocks. Each block is a piece with its own design: a title, a paragraph, a list, a note.\n\nYou pick the blocks that best tell the idea. The engine takes care of how they look."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "Blocks for telling"},
+      {"type": "table", "rows": [
+        ["`heading`", "Page title"],
+        ["`question`", "Title as a question, like \"What is Bookify?\""],
+        ["`text`", "Paragraphs"],
+        ["`highlight`", "The sentence that sums up the page"],
+        ["`note`", "Example or warning, in handwriting"],
+        ["`list`", "Bullets or numbered steps"],
+        ["`footnote`", "Small clarification in gray"]
+      ]}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "Blocks for showing"},
+      {"type": "table", "rows": [
+        ["`illustration`", "A drawing in size `s`, `m` or `l`"],
+        ["`table`", "Two short columns, like this one"],
+        ["`levels`", "A scale of label and explanation"],
+        ["`facts`", "Key facts with an indigo label"],
+        ["`combine`", "The A + B → result diagram"],
+        ["`columns`", "Two ideas side by side"],
+        ["`myths`", "Crossed-out ideas with their explanation"],
+        ["`sources`", "The list of sources"]
+      ]}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "One idea per page"},
+      {"type": "text", "text": "It's the most important rule. As a guide, a page holds about **110 words** of running text, or a diagram and about 40 words.\n\nIf a page needs two ideas, it's two pages."},
+      {"type": "highlight", "text": "If it doesn't fit, split it or trim it. Never shrink the font size."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "pencil", "size": "s"},
+      {"type": "heading", "level": 2, "text": "The tone"},
+      {"type": "text", "text": "It's set by `style.md`. Second person, sentences of 6 to 20 words, paragraphs of one to three sentences.\n\nNo unexplained jargon, exclamation marks or emojis. Three bold phrases per page at most."},
+      {"type": "note", "label": "For example:", "text": "In a manual like this one, steps use the imperative: ==Open==, ==Run==, ==Restart==."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "star", "size": "s"},
+      {"type": "heading", "level": 2, "text": "The drawings"},
+      {"type": "text", "text": "Each book keeps its SVGs in `images/` and refers to them by name, without the extension.\n\nInk stroke, flat shapes and only the palette colors, using the classes `indigo`, `coral`, `mint`, `paper` and `ink`. No `id` inside the drawing."},
+      {"type": "footnote", "text": "This book uses the same drawings as its Spanish edition, as the skill allows."}
+    ]},
+
+    {"type": "chapter", "id": "output", "title": "The final output", "subtitle": "Build, check, share", "color": "indigo"},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "bolt", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Build"},
+      {"type": "text", "text": "The engine takes the book's name and reads its content. Then it writes the finished book to the `output/` folder, using the title as the file name.\n\nWith `--all` it builds every book in the folder. With `--dir` it works in another folder: that's how this repository's examples are built."},
+      {"type": "note", "label": "Check:", "text": "When it's done, the engine prints ==Done:==, the book's path and how many pages it has."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "Checking the space"},
+      {"type": "text", "text": "While it builds, the engine **estimates** how much room each page takes, without a browser. It's a cautious estimate: it usually runs a little high."},
+      {"type": "levels", "rows": [
+        ["check", "From 97 % of the usable height: it might just fit"],
+        ["overflows", "From 115 %: it almost surely spills over"]
+      ]},
+      {"type": "space", "height": 12},
+      {"type": "text", "text": "With `overflows`, the page gets split or trimmed."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "magnifier", "size": "s"},
+      {"type": "heading", "level": 2, "text": "The exact measurement"},
+      {"type": "text", "text": "To be sure, open the book in the browser with `?check` at the end of the address.\n\nIn that mode the book measures every page for real and tells you which ones spill over. If everything is fine, it says so in one line."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "combine", "icon": "json", "a": "content.json and drawings", "b": "Template", "b_label": "HTML, CSS, JS and icons", "result": "A single file"},
+      {"type": "text", "text": "The engine puts everything inside the same `.html`: the design, the animation, the icons and the pages.\n\nThat's why the book depends on nothing else. You send it and it opens."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "heading", "level": 2, "text": "Details the engine adds"},
+      {"type": "list", "items": [
+        "The **contents**, with as many pages as they need.",
+        "The **page numbers**.",
+        "A **blank page** when needed, so the back cover closes the book.",
+        "The reader's texts in the book's language."
+      ]},
+      {"type": "text", "text": "You write none of that."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "screens", "size": "l"},
+      {"type": "heading", "level": 2, "text": "On any screen"},
+      {"type": "text", "text": "The page has a fixed size and scales as a whole. On a phone you see one page. On a computer, two open pages, like a book.\n\nThe two-page view appears when the screen is landscape and at least 900 by 500 pixels."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "shield-check", "size": "s"},
+      {"type": "heading", "level": 2, "text": "The review"},
+      {"type": "text", "text": "Before delivering, the assistant reviews the book with `review.md`. If its tool can launch a subagent, it hands the review to it, so it reads the book with fresh eyes.\n\nIt checks page by page: one idea only, the tone, the language, the type's structure, the drawings and the sources."}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "heading", "level": 2, "text": "The full workflow"},
+      {"type": "list", "ordered": true, "items": [
+        "Gather the material. What was researched in the conversation is the main source.",
+        "Decide the type and the language.",
+        "Outline: chapters and one idea per page.",
+        "Create the folder with `--new`.",
+        "Write `content.json`."
+      ]}
+    ]},
+
+    {"type": "page", "align": "top", "blocks": [
+      {"type": "list", "ordered": true, "start": 6, "items": [
+        "Draw the missing SVGs.",
+        "Build and fix whatever doesn't fit.",
+        "Review with `review.md` and build again.",
+        "Deliver the path to `output/<Title>.html`."
+      ]},
+      {"type": "note", "label": "Check:", "text": "You'll know it's done when you have an `.html` that opens with a double click and shows no ==overflows==."}
+    ]},
+
+    {"type": "page", "blocks": [
+      {"type": "illustration", "src": "spread", "size": "m"},
+      {"type": "heading", "level": 2, "text": "Adjusting later"},
+      {"type": "text", "text": "A book isn't set in stone. Ask for changes the way you'd ask a person: \"make chapter 2 shorter\" or \"add a page about costs\".\n\nThe assistant changes `content.json` and rebuilds it with `/bookify build`."}
+    ]},
+
+    {"type": "page", "id": "next-steps", "toc": "Next steps", "toc_main": true, "blocks": [
+      {"type": "illustration", "src": "target", "size": "s"},
+      {"type": "heading", "level": 2, "text": "Next steps"},
+      {"type": "list", "ordered": true, "items": [
+        "Install Bookify in your tool.",
+        "Research something you really care about.",
+        "Ask for the book with `/bookify`, or `@bookify` in OpenCode.",
+        "Open it with `?check` and compare it with its `content.json`."
+      ]},
+      {"type": "text", "text": "Your first book teaches more than any manual."}
+    ]},
+
+    {"type": "page", "id": "sources", "toc": "Sources", "toc_main": true, "blocks": [
+      {"type": "heading", "level": 2, "text": "Sources"},
+      {"type": "footnote", "text": "Files from the Bookify repository, version 1.0.0."},
+      {"type": "sources", "items": [
+        ["Project README", "https://github.com/devjoi2018/bookify#readme"],
+        ["SKILL.md: the skill's workflow", "https://github.com/devjoi2018/bookify/blob/main/bookify/SKILL.md"],
+        ["style.md: the tone", "https://github.com/devjoi2018/bookify/blob/main/bookify/style.md"],
+        ["structures.md: structure by type", "https://github.com/devjoi2018/bookify/blob/main/bookify/structures.md"],
+        ["format.md: the content.json format", "https://github.com/devjoi2018/bookify/blob/main/bookify/format.md"],
+        ["review.md: the review", "https://github.com/devjoi2018/bookify/blob/main/bookify/review.md"],
+        ["build.py: the engine", "https://github.com/devjoi2018/bookify/blob/main/bookify/engine/build.py"],
+        ["install.py: the installer", "https://github.com/devjoi2018/bookify/blob/main/bookify/install.py"],
+        ["The Agent Skills standard", "https://agentskills.io"]
+      ]},
+      {"type": "footnote", "text": "Design and tone inspired by *Proceso creativo*, by Eduardo Salles. Original content."}
+    ]},
+
+    {"type": "back-cover", "illustration": "cover", "text": "What you research, turned into a clear book. Made with Bookify, about Bookify."}
+  ]
+}

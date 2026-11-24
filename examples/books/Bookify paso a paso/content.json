@@ -1,0 +1,1424 @@
+{
+  "title": "Bookify paso a paso",
+  "type": "manual",
+  "language": "es",
+  "description": "Qué es Bookify, cómo se instala, cómo se prepara una carpeta de libros, cómo se arma un libro y cómo se genera el HTML final. Hecho con el propio Bookify.",
+  "pages": [
+    {
+      "type": "cover",
+      "label": "Manual",
+      "title": [
+        "Bookify",
+        "paso a paso"
+      ],
+      "illustration": "cover",
+      "subtitle": "De una conversación con tu IA a un libro ilustrado. Explicado con este mismo libro.",
+      "footer": [
+        "Noviembre 2026",
+        "Versión 1.0.0"
+      ]
+    },
+    {
+      "type": "contents",
+      "title": "Índice",
+      "illustration": "open-book"
+    },
+    {
+      "type": "page",
+      "id": "intro",
+      "toc": "Introducción",
+      "toc_main": true,
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "chat-to-book",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "text": "Introducción"
+        },
+        {
+          "type": "text",
+          "text": "Investigar con una IA es rápido. Leer lo que responde cuesta más: respuestas largas, ideas enterradas y un tono que suena a relleno.\n\nBookify toma esa conversación y la convierte en un libro corto, ilustrado y con una idea por página.\n\nDe eso va este manual."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "magnifier",
+          "size": "s"
+        },
+        {
+          "type": "highlight",
+          "text": "Este libro está hecho **con Bookify**, a partir de sus propios archivos y de su código."
+        },
+        {
+          "type": "text",
+          "text": "Todo lo que vas a leer sale del repositorio: las instrucciones de la skill, el instalador y el motor que construye los libros."
+        },
+        {
+          "type": "note",
+          "label": "Truco:",
+          "text": "Su fuente está en la carpeta ==examples/books== del repositorio. Ábrela y compara cada página con el JSON que la produce."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "map",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El recorrido"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Qué es Bookify y qué problema resuelve.",
+            "Instalarlo en tu herramienta.",
+            "Preparar tu carpeta de libros.",
+            "Cómo se arma un libro: capítulos, páginas y bloques.",
+            "La salida final: construir, comprobar y compartir."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Cada capítulo se apoya en el anterior. Léelos en orden."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "antes",
+      "toc": "Antes de empezar",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "check",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Antes de empezar"
+        },
+        {
+          "type": "text",
+          "text": "Necesitas dos cosas:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Python 3.9 o superior.** Bookify no instala ningún paquete: todo usa la biblioteca estándar.",
+            "**Una de estas herramientas:** Claude Code, Command Code, OpenCode o GitHub Copilot en VS Code."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Para instalar y actualizar necesitas internet. Para leer los libros, no."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "que-es",
+      "title": "Qué es Bookify",
+      "subtitle": "La idea y las piezas",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "question",
+          "light": "¿Qué es",
+          "bold": "Bookify?"
+        },
+        {
+          "type": "highlight",
+          "align": "center",
+          "text": "Dicho de la forma más sencilla posible, __Bookify es una skill que convierte una investigación en un libro digital ilustrado__."
+        },
+        {
+          "type": "text",
+          "align": "center",
+          "text": "Un solo archivo **HTML**, con paso de página, que se abre en cualquier navegador."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "skill",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Qué es una skill"
+        },
+        {
+          "type": "text",
+          "text": "Una __skill__ es una carpeta con instrucciones que tu asistente lee cuando las necesita. Su archivo principal se llama `SKILL.md`.\n\nBookify sigue el estándar **Agent Skills**. Por eso la misma carpeta funciona en cuatro herramientas distintas."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Cuando escribes ==convierte esto en libro==, el asistente reconoce la petición por la descripción de `SKILL.md` y carga la skill."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "chat",
+          "a": "Lo que investigaste",
+          "b": "Bookify",
+          "b_label": "Reglas de escritura y diseño",
+          "result": "Un libro claro"
+        },
+        {
+          "type": "text",
+          "text": "Tú pones el contenido. Bookify pone el método: cómo escribir, cómo ordenar y cómo se ve el resultado.\n\nAsí no tienes que pedir cinco veces que te lo expliquen más simple."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que hay dentro"
+        },
+        {
+          "type": "text",
+          "text": "La carpeta `bookify/` es la skill completa. Es lo que se instala."
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`SKILL.md`",
+              "Qué hacer según el pedido y el flujo de trabajo"
+            ],
+            [
+              "`style.md`",
+              "El tono y el ritmo de escritura"
+            ],
+            [
+              "`structures.md`",
+              "La estructura de cada tipo de libro"
+            ],
+            [
+              "`format.md`",
+              "El formato de `content.json` y sus bloques"
+            ],
+            [
+              "`review.md`",
+              "La revisión antes de entregar"
+            ],
+            [
+              "`engine/`",
+              "El motor que construye el HTML y la plantilla"
+            ],
+            [
+              "`install.py`",
+              "El instalador y actualizador"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "columns",
+          "columns": [
+            {
+              "icon": "pencil",
+              "title": "El asistente escribe",
+              "text": "Redacta el contenido en `content.json` y dibuja los SVG."
+            },
+            {
+              "icon": "document",
+              "title": "El motor construye",
+              "text": "Pone el diseño, la animación, los números de página y el índice."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Esta separación es la clave. El asistente **nunca escribe HTML, CSS ni JS** para un libro.\n\nPor eso todos los libros comparten el mismo sello."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que no hace"
+        },
+        {
+          "type": "myths",
+          "items": [
+            [
+              "Inventa información para rellenar",
+              "Cuenta lo que se investigó. Si falta un dato, no lo pone."
+            ],
+            [
+              "Cambia de diseño en cada libro",
+              "La paleta, las tipografías y la portada son siempre las mismas."
+            ],
+            [
+              "Necesita instalar paquetes",
+              "Solo usa la biblioteca estándar de Python."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Ojo con lo que entra: si la conversación trae datos dudosos, el libro también."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "instalar",
+      "title": "Instalarlo",
+      "subtitle": "Un comando y listo",
+      "color": "indigo"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "terminal",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Paso 1 · Abre una terminal"
+        },
+        {
+          "type": "text",
+          "text": "En Windows, abre **PowerShell**. En macOS o Linux, abre la **Terminal**.\n\nNo necesitas descargar el repositorio. El comando del siguiente paso lo hace por ti."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "download",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Paso 2 · Ejecuta el instalador"
+        },
+        {
+          "type": "text",
+          "text": "Copia el comando de tu sistema. Este instala Bookify para Claude Code:"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "Windows (PowerShell)",
+              "`irm …/install.py`\n`| python - --tool claude`"
+            ],
+            [
+              "macOS o Linux",
+              "`curl -fsSL …/install.py`\n`| python3 - --tool claude`"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Truco:",
+          "text": "La dirección completa de `install.py` está en el ==README== del repositorio. Cópiala de ahí."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Paso 3 · Elige tu herramienta"
+        },
+        {
+          "type": "text",
+          "text": "Cambia `claude` por el valor de la herramienta que uses:"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "Claude Code",
+              "`claude`"
+            ],
+            [
+              "Command Code",
+              "`commandcode`"
+            ],
+            [
+              "OpenCode",
+              "`opencode`"
+            ],
+            [
+              "GitHub Copilot",
+              "`copilot`"
+            ],
+            [
+              "Varias a la vez",
+              "`claude,copilot`"
+            ],
+            [
+              "Todas",
+              "`all`"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "Si ejecutas `install.py` en una terminal sin `--tool`, te pregunta cuál quieres con un menú numerado."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "skill",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Qué hace el instalador"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Descarga el **último release** del repositorio en GitHub.",
+            "Copia la carpeta `bookify/` en la carpeta de skills de tu herramienta.",
+            "Cambia `{{SKILL_DIR}}` por la ruta real donde quedó instalada.",
+            "Anota la instalación en `~/.bookify/installs.json`."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Ese registro es el que después usa la actualización."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dónde queda"
+        },
+        {
+          "type": "text",
+          "text": "Por defecto se instala para tu usuario y sirve en todos tus proyectos:"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "Claude Code",
+              "`~/.claude/skills/`"
+            ],
+            [
+              "Command Code",
+              "`~/.commandcode/skills/`"
+            ],
+            [
+              "OpenCode",
+              "`~/.config/opencode/skills/`"
+            ],
+            [
+              "GitHub Copilot",
+              "`~/.copilot/skills/`"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Dentro de cada una aparece una carpeta `bookify`. Ya verás cómo instalarlo solo en un proyecto."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "window",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Paso 4 · Reinicia la herramienta"
+        },
+        {
+          "type": "text",
+          "text": "Cierra y vuelve a abrir tu herramienta, o abre una sesión nueva. Así carga la skill."
+        },
+        {
+          "type": "note",
+          "label": "Señal:",
+          "text": "Sabrás que funcionó cuando el instalador muestre una línea con ✓, la ruta y la versión, y `/bookify version` responda ==1.0.0==."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "update",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Mantenerlo al día"
+        },
+        {
+          "type": "text",
+          "text": "Escribe `/bookify update` en tu asistente. Primero comprueba si hay una versión nueva en GitHub.\n\nSi la hay, te resume las novedades y la instala en **todas** las herramientas registradas. Tus libros no se tocan."
+        },
+        {
+          "type": "footnote",
+          "text": "Compara el último release con la instalación más antigua que tengas, para que ninguna se quede atrás."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Si algo falla"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`python` no responde",
+              "Prueba `python3`, o `py` en Windows"
+            ],
+            [
+              "Pide nombrar la herramienta",
+              "Añade `--tool` con su valor"
+            ],
+            [
+              "No hay versiones publicadas",
+              "Aún no existe un release en GitHub"
+            ],
+            [
+              "La skill no aparece",
+              "Reinicia la herramienta"
+            ],
+            [
+              "Quieres quitarlo",
+              "Usa `--uninstall` con `--tool`"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Desinstalar borra la skill, pero deja tus carpetas `books/` y `output/` como estaban."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "carpeta",
+      "title": "Tu carpeta de libros",
+      "subtitle": "Dónde vive cada libro",
+      "color": "coral"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "folder",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Trabaja donde estás"
+        },
+        {
+          "type": "text",
+          "text": "El motor trabaja en la **carpeta abierta** en tu herramienta. Ahí crea dos carpetas:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "`books/`: la fuente de cada libro, la que se edita.",
+            "`output/`: los libros terminados, listos para compartir."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Una carpeta puede guardar todos los libros que quieras."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Para un solo proyecto"
+        },
+        {
+          "type": "text",
+          "text": "Si quieres que Bookify solo exista en una carpeta, añade `--project` al comando de instalación.\n\nEntonces se instala dentro de esa carpeta, por ejemplo en `.claude/skills/` o en `.github/skills/` para Copilot."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "Una carpeta llamada ==Mis investigaciones== con Bookify instalado dentro. Cada tema que investigas termina como un libro más en su estantería."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "pencil",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Crear un libro"
+        },
+        {
+          "type": "text",
+          "text": "Normalmente lo hace el asistente. Por dentro, le pide al motor un libro nuevo con tres datos: el nombre, el tipo y el idioma.\n\nEste libro se creó así, como un manual en español. El motor respondió:"
+        },
+        {
+          "type": "note",
+          "label": "Dato:",
+          "text": "Created: books/Bookify paso a paso (manual, es). Write content.json, then build."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lo que se crea"
+        },
+        {
+          "type": "facts",
+          "rows": [
+            [
+              "Carpeta",
+              "`books/<Nombre>/`"
+            ],
+            [
+              "Contenido",
+              "`content.json`, con portada, índice, un capítulo, fuentes y contraportada de muestra"
+            ],
+            [
+              "Dibujos",
+              "`images/`, vacía al principio"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "El JSON inicial es solo un esqueleto. El trabajo de verdad es llenarlo."
+        },
+        {
+          "type": "footnote",
+          "text": "Si ya existe un `content.json` con ese nombre, el motor no lo pisa: avisa con un error."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Elige el tipo"
+        },
+        {
+          "type": "text",
+          "text": "El tipo lo decide **el contenido**, no el tema:"
+        },
+        {
+          "type": "levels",
+          "rows": [
+            [
+              "guide",
+              "Entender un tema y saber decidir"
+            ],
+            [
+              "manual",
+              "Hacer algo sin perderse, como este libro"
+            ],
+            [
+              "story",
+              "Seguir un hilo de hechos o un relato"
+            ],
+            [
+              "explainer",
+              "Que una idea difícil se entienda"
+            ],
+            [
+              "research",
+              "Contar un hallazgo o un estudio"
+            ],
+            [
+              "other",
+              "Lo que no encaja en los anteriores"
+            ]
+          ]
+        },
+        {
+          "type": "space",
+          "height": 12
+        },
+        {
+          "type": "text",
+          "text": "El tipo pone la etiqueta de la portada y guía la estructura."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "languages",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Elige el idioma"
+        },
+        {
+          "type": "text",
+          "text": "El libro se escribe en el idioma en que hablas con tu asistente. Su código va en `language`.\n\nEl motor trae los textos del lector en español, inglés y portugués: botones, \"Portada\", \"Fin\". Para otro idioma, el JSON añade `ui` con las traducciones."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "armar",
+      "title": "Cómo se arma un libro",
+      "subtitle": "Capítulos, páginas y bloques",
+      "color": "mint"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "json",
+          "size": "m"
+        },
+        {
+          "type": "question",
+          "light": "¿Qué hay en",
+          "bold": "content.json?"
+        },
+        {
+          "type": "text",
+          "text": "Solo **contenido**. Un título, un tipo, un idioma, una descripción y una lista de páginas.\n\nLas claves van en inglés. Los textos, en el idioma del libro."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cinco tipos de página"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`cover`",
+              "La portada: etiqueta, título, subtítulo, dibujo y pie"
+            ],
+            [
+              "`contents`",
+              "El índice, que el motor arma solo"
+            ],
+            [
+              "`chapter`",
+              "La apertura de un capítulo, a todo color"
+            ],
+            [
+              "`page`",
+              "Todo lo demás: una lista de bloques"
+            ],
+            [
+              "`back-cover`",
+              "La contraportada, con una o dos frases"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "La portada de este libro es un `cover` con la etiqueta ==Manual== y el título en dos líneas: la segunda sale en coral."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "arc",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Un mismo esqueleto"
+        },
+        {
+          "type": "text",
+          "text": "Todos los libros empiezan igual: portada, índice e introducción. Y terminan igual: cierre, fuentes y contraportada.\n\nLo que cambia es el medio. Ahí manda el tipo de libro."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El medio, según el tipo"
+        },
+        {
+          "type": "levels",
+          "rows": [
+            [
+              "guide",
+              "Principios, piezas, cómo se combinan, práctica"
+            ],
+            [
+              "manual",
+              "Antes de empezar, fases con pasos, si algo falla"
+            ],
+            [
+              "story",
+              "El mundo antes, actos, el giro, lo que dejó"
+            ],
+            [
+              "explainer",
+              "Pregunta, piezas, mecanismo, errores, una frase"
+            ],
+            [
+              "research",
+              "Hallazgo, cómo se sabe, qué significa"
+            ]
+          ]
+        },
+        {
+          "type": "space",
+          "height": 12
+        },
+        {
+          "type": "text",
+          "text": "Son puntos de partida, no reglas. El tamaño orientativo es de 30 a 70 páginas."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "palette",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Los capítulos"
+        },
+        {
+          "type": "text",
+          "text": "Cada capítulo empieza con una página `chapter`. Su color rota siempre en el mismo orden: **menta**, **índigo** y **coral**.\n\nFíjate en este libro: *Qué es Bookify* fue menta, *Instalarlo* fue índigo y *Tu carpeta de libros* fue coral. Este capítulo vuelve a menta."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El índice se arma solo"
+        },
+        {
+          "type": "text",
+          "text": "No escribes el índice. El motor lo construye con los capítulos y con las páginas que llevan `toc`.\n\nCon `toc_main` la página entra como entrada principal. Sin él, como subentrada. Los números de página también los pone el motor."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "La página ==Antes de empezar== de este libro lleva `toc` y por eso aparece en el índice bajo la introducción."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "blocks",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Las páginas son bloques"
+        },
+        {
+          "type": "text",
+          "text": "Una `page` es una pila de bloques. Cada bloque es una pieza con su propio diseño: un título, un párrafo, una lista, una nota.\n\nEliges los bloques que mejor cuentan la idea. El motor se encarga de cómo se ven."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Bloques para contar"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`heading`",
+              "Título de página"
+            ],
+            [
+              "`question`",
+              "Título en pregunta, como el de \"¿Qué es Bookify?\""
+            ],
+            [
+              "`text`",
+              "Párrafos"
+            ],
+            [
+              "`highlight`",
+              "La frase que resume la página"
+            ],
+            [
+              "`note`",
+              "Ejemplo o aviso, con letra manuscrita"
+            ],
+            [
+              "`list`",
+              "Viñetas o pasos numerados"
+            ],
+            [
+              "`footnote`",
+              "Aclaración pequeña en gris"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Bloques para mostrar"
+        },
+        {
+          "type": "table",
+          "rows": [
+            [
+              "`illustration`",
+              "Un dibujo en tamaño `s`, `m` o `l`"
+            ],
+            [
+              "`table`",
+              "Dos columnas cortas, como esta"
+            ],
+            [
+              "`levels`",
+              "Una escala de etiqueta y explicación"
+            ],
+            [
+              "`facts`",
+              "Datos clave con etiqueta índigo"
+            ],
+            [
+              "`combine`",
+              "El diagrama A + B → resultado"
+            ],
+            [
+              "`columns`",
+              "Dos ideas lado a lado"
+            ],
+            [
+              "`myths`",
+              "Ideas tachadas con su explicación"
+            ],
+            [
+              "`sources`",
+              "La lista de fuentes"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Una idea por página"
+        },
+        {
+          "type": "text",
+          "text": "Es la regla más importante. Como guía, una página aguanta unas **110 palabras** de texto corrido, o un diagrama y unas 40 palabras.\n\nSi una página necesita dos ideas, son dos páginas."
+        },
+        {
+          "type": "highlight",
+          "text": "Si no cabe, se divide o se recorta. Nunca se baja el tamaño de letra."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "pencil",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El tono"
+        },
+        {
+          "type": "text",
+          "text": "Lo define `style.md`. Segunda persona, frases de 6 a 20 palabras, párrafos de una a tres frases.\n\nNada de jerga sin explicar, exclamaciones ni emojis. Como mucho, tres negritas por página."
+        },
+        {
+          "type": "note",
+          "label": "Por ejemplo:",
+          "text": "En un manual como este, los pasos van en imperativo: ==Abre==, ==Ejecuta==, ==Reinicia==."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "star",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Los dibujos"
+        },
+        {
+          "type": "text",
+          "text": "Cada libro guarda sus SVG en `images/` y los cita por nombre, sin extensión.\n\nTrazo de tinta, formas planas y solo los colores de la paleta, con las clases `indigo`, `coral`, `mint`, `paper` e `ink`. Sin `id` dentro del dibujo."
+        },
+        {
+          "type": "footnote",
+          "text": "Este libro usa los mismos dibujos que su edición en inglés, como permite la skill."
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "id": "salida",
+      "title": "La salida final",
+      "subtitle": "Construir, comprobar, compartir",
+      "color": "indigo"
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "bolt",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Construir"
+        },
+        {
+          "type": "text",
+          "text": "El motor recibe el nombre del libro y lee su contenido. Después escribe el libro terminado en la carpeta `output/`, con el título como nombre del archivo.\n\nCon `--all` construye todos los libros de la carpeta. Con `--dir` trabaja en otra carpeta: así se construyen los ejemplos de este repositorio."
+        },
+        {
+          "type": "note",
+          "label": "Señal:",
+          "text": "Al terminar, el motor escribe ==Done:==, la ruta del libro y cuántas páginas tiene."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Comprobar el espacio"
+        },
+        {
+          "type": "text",
+          "text": "Mientras construye, el motor **estima** cuánto ocupa cada página, sin navegador. Es una estimación prudente: suele quedarse algo por encima."
+        },
+        {
+          "type": "levels",
+          "rows": [
+            [
+              "check",
+              "Desde el 97 % del alto útil: puede que quepa justo"
+            ],
+            [
+              "overflows",
+              "Desde el 115 %: casi seguro que se sale"
+            ]
+          ]
+        },
+        {
+          "type": "space",
+          "height": 12
+        },
+        {
+          "type": "text",
+          "text": "Con `overflows`, la página se divide o se recorta."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "magnifier",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "La medida exacta"
+        },
+        {
+          "type": "text",
+          "text": "Para salir de dudas, abre el libro en el navegador con `?check` al final de la dirección.\n\nEn ese modo el libro mide cada página de verdad y te dice cuáles se salen. Si todo está bien, lo indica en una línea."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "combine",
+          "icon": "json",
+          "a": "content.json y dibujos",
+          "b": "Plantilla",
+          "b_label": "HTML, CSS, JS e iconos",
+          "result": "Un solo archivo"
+        },
+        {
+          "type": "text",
+          "text": "El motor mete todo dentro del mismo `.html`: el diseño, la animación, los iconos y las páginas.\n\nPor eso el libro no depende de nada más. Lo mandas y se abre."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Detalles que pone el motor"
+        },
+        {
+          "type": "list",
+          "items": [
+            "El **índice**, con tantas páginas como necesite.",
+            "Los **números de página**.",
+            "Una **página en blanco** si hace falta, para que la contraportada cierre el libro.",
+            "Los textos del lector en el idioma del libro."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Tú no escribes nada de eso."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "screens",
+          "size": "l"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "En cualquier pantalla"
+        },
+        {
+          "type": "text",
+          "text": "La página tiene un tamaño fijo y se escala entera. En el celular ves una página. En la computadora, dos abiertas, como un libro.\n\nLa vista doble aparece si la pantalla es horizontal y mide al menos 900 por 500 píxeles."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "shield-check",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "La revisión"
+        },
+        {
+          "type": "text",
+          "text": "Antes de entregar, el asistente revisa el libro con `review.md`. Si su herramienta puede lanzar un subagente, se la encarga a él, para que lo lea con ojos nuevos.\n\nComprueba página por página: una sola idea, el tono, el idioma, la estructura del tipo, los dibujos y las fuentes."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "El flujo completo"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Reúne el material. Lo investigado en la conversación es la fuente principal.",
+            "Decide el tipo y el idioma.",
+            "Escaleta: capítulos y una idea por página.",
+            "Crea la carpeta con `--new`.",
+            "Escribe `content.json`."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "align": "top",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": true,
+          "start": 6,
+          "items": [
+            "Dibuja los SVG que falten.",
+            "Construye y arregla lo que no quepa.",
+            "Revisa con `review.md` y vuelve a construir.",
+            "Entrega la ruta de `output/<Título>.html`."
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Señal:",
+          "text": "Sabrás que terminó cuando tengas un `.html` que se abre con doble clic y no marca ==overflows==."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "spread",
+          "size": "m"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Ajustar después"
+        },
+        {
+          "type": "text",
+          "text": "Un libro no se queda fijo. Pide cambios como se los pedirías a una persona: \"haz más corto el capítulo 2\" o \"añade una página sobre los costos\".\n\nEl asistente cambia `content.json` y lo reconstruye con `/bookify build`."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "siguientes",
+      "toc": "Siguientes pasos",
+      "toc_main": true,
+      "blocks": [
+        {
+          "type": "illustration",
+          "src": "target",
+          "size": "s"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Siguientes pasos"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Instala Bookify en tu herramienta.",
+            "Investiga algo que te interese de verdad.",
+            "Pide el libro con `/bookify`, o `@bookify` en OpenCode.",
+            "Ábrelo con `?check` y compáralo con su `content.json`."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "El primer libro enseña más que cualquier manual."
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "id": "fuentes",
+      "toc": "Fuentes",
+      "toc_main": true,
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fuentes"
+        },
+        {
+          "type": "footnote",
+          "text": "Archivos del repositorio de Bookify, versión 1.0.0."
+        },
+        {
+          "type": "sources",
+          "items": [
+            [
+              "README del proyecto",
+              "https://github.com/devjoi2018/bookify#readme"
+            ],
+            [
+              "SKILL.md: el flujo de la skill",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/SKILL.md"
+            ],
+            [
+              "style.md: el tono",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/style.md"
+            ],
+            [
+              "structures.md: la estructura por tipo",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/structures.md"
+            ],
+            [
+              "format.md: el formato de content.json",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/format.md"
+            ],
+            [
+              "review.md: la revisión",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/review.md"
+            ],
+            [
+              "build.py: el motor",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/engine/build.py"
+            ],
+            [
+              "install.py: el instalador",
+              "https://github.com/devjoi2018/bookify/blob/main/bookify/install.py"
+            ],
+            [
+              "El estándar Agent Skills",
+              "https://agentskills.io"
+            ]
+          ]
+        },
+        {
+          "type": "footnote",
+          "text": "Diseño y tono inspirados en *Proceso creativo*, de Eduardo Salles. Contenido original."
+        }
+      ]
+    },
+    {
+      "type": "back-cover",
+      "illustration": "cover",
+      "text": "Lo que investigas, convertido en un libro claro. Hecho con Bookify, sobre Bookify."
+    }
+  ]
+}
