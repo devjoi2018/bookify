@@ -1,0 +1,36 @@
+# Publishes a GitHub release when bookify/version.json has a version that is not released yet.
+# To ship a new version: raise "version" in bookify/version.json, add its section to
+# CHANGELOG.md ("## X.Y.Z"), commit and push to main. This workflow creates the tag vX.Y.Z
+# and the release, with that CHANGELOG section as the release notes.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths: [bookify/version.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the version
+        id: version
+        run: echo "value=$(python3 -c 'import json; print(json.load(open("bookify/version.json"))["version"])')" >> "$GITHUB_OUTPUT"
+
+      - name: Create the release if it does not exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          if gh release view "v$VERSION" > /dev/null 2>&1; then
+            echo "v$VERSION is already released. Nothing to do."
+            exit 0
+          fi
+          python3 .github/scripts/release_notes.py "$VERSION" > notes.md
+          gh release create "v$VERSION" --target "$GITHUB_SHA" --title "Bookify $VERSION" --notes-file notes.md

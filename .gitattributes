@@ -1,0 +1,4 @@
+# Left out of the release archives that the installer downloads: only the skill is needed.
+.github/ export-ignore
+docs/ export-ignore
+examples/ export-ignore

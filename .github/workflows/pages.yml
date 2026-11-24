@@ -1,0 +1,57 @@
+# Builds the sample books and publishes them on GitHub Pages:
+#   https://devjoi2018.github.io/bookify/en/  (Bookify step by step)
+#   https://devjoi2018.github.io/bookify/es/  (Bookify paso a paso)
+# The HTML is not stored in the repository: it is built here from examples/books/.
+# One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+name: Sample books
+
+on:
+  push:
+    branches: [main]
+    paths: [examples/**, bookify/engine/**, .github/workflows/pages.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the books
+        run: python3 bookify/engine/build.py --dir examples --all
+
+      - name: Arrange the site
+        run: |
+          mkdir -p site/en site/es
+          cp "examples/output/Bookify step by step.html" site/en/index.html
+          cp "examples/output/Bookify paso a paso.html" site/es/index.html
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>Bookify · sample book</title>
+          <meta http-equiv="refresh" content="0; url=en/">
+          <p><a href="en/">English</a> · <a href="es/">Español</a></p>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
