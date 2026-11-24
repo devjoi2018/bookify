@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Bookify">
+  <circle cx="64" cy="64" r="62" fill="#BFE6D5"/>
+  <path d="M64 101 C52 96 36 96 20 99 V46 H26 V92 C40 89 54 90 64 96 C74 90 88 89 102 92 V46 H108 V99 C92 96 76 96 64 101 Z" fill="#3949D6"/>
+  <path d="M64 44 C54 38 40 37 26 40 V92 C40 89 54 90 64 96 Z" fill="#FFFFFF"/>
+  <path d="M64 44 C74 38 88 37 102 40 V92 C88 89 74 90 64 96 Z" fill="#FFFFFF"/>
+  <g stroke="#3949D6" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M34 54 C41 52 48 52 55 54"/>
+    <path d="M34 65 C41 63 48 63 55 65"/>
+    <path d="M34 76 C39 75 43 75 47 76"/>
+  </g>
+  <path d="M64 44 C70 36 80 28 92 24 V76 C80 80 70 88 64 96 Z" fill="#FF6B4F"/>
+</svg>

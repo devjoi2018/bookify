@@ -1,6 +1,8 @@
 <div align="center">
 
-# 📖 Bookify
+<img src="docs/logo.svg" alt="Logo de Bookify" width="96">
+
+# Bookify
 
 **Convierte lo que investigas con tu IA en un libro ilustrado, claro y fácil de leer.**
 
@@ -13,7 +15,7 @@
 
 <a href="https://devjoi2018.github.io/bookify/es/"><img src="docs/demo.gif" alt="Pasando las páginas del libro de muestra, hecho con Bookify" width="760"></a>
 
-**[📖 Lee el libro de muestra en tu navegador](https://devjoi2018.github.io/bookify/es/)**
+**[Lee el libro de muestra en tu navegador](https://devjoi2018.github.io/bookify/es/)**
 
 </div>
 
@@ -139,7 +141,7 @@ Sirve para guías, manuales, historias, explicaciones, resúmenes de investigaci
 
 4. **Reinicia tu herramienta** o abre una sesión nueva, para que encuentre la skill.
 
-Listo. 🎉
+Listo.
 
 <details>
 <summary><b>Instalar solo en un proyecto</b></summary>
@@ -304,6 +306,7 @@ bookify/                 ← la skill (es lo que se instala)
     └── template/        ← diseño: HTML, CSS, JS e iconos (ver DESIGN.md)
 examples/                ← un libro de muestra que explica Bookify, en inglés y en español
 docs/demo.gif            ← la animación del principio de esta página
+docs/logo.svg            ← el logo del proyecto
 ```
 
 ## Licencia
