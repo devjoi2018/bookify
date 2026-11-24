@@ -11,7 +11,9 @@
 [![Latest release](https://img.shields.io/github/v/release/devjoi2018/bookify?color=FF6B4F)](https://github.com/devjoi2018/bookify/releases)
 [![No dependencies](https://img.shields.io/badge/dependencies-none-BFE6D5.svg)](#requirements)
 
-<img src="docs/demo.gif" alt="Turning the pages of Bookify step by step, a sample book made with Bookify" width="760">
+<a href="https://devjoi2018.github.io/bookify/en/"><img src="docs/demo.gif" alt="Turning the pages of Bookify step by step, a sample book made with Bookify" width="760"></a>
+
+**[📖 Read the sample book in your browser](https://devjoi2018.github.io/bookify/en/)**
 
 </div>
 
